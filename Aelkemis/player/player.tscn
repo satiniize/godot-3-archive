@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://player/player.gd" type="Script" id=1]
+[ext_resource path="res://weapons/rifle/rifle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://weapons/scythe/scythe.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/pistol/pistol.tscn" type="PackedScene" id=4]
+[ext_resource path="res://hud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://weapons/blade/blade.tscn" type="PackedScene" id=6]
+[ext_resource path="res://player/player.png" type="Texture" id=7]
+[ext_resource path="res://weapons/grenade_laucher/grenade_launcher.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 8 )
+
+[node name="player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource( 1 )
+armor_stat = 20.0
+jump_force = 100.0
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+
+[node name="hud" parent="." instance=ExtResource( 5 )]
+
+[node name="weapons" type="Node2D" parent="."]
+
+[node name="blade" parent="weapons" instance=ExtResource( 6 )]
+
+[node name="scythe" parent="weapons" instance=ExtResource( 3 )]
+
+[node name="pistol" parent="weapons" instance=ExtResource( 4 )]
+
+[node name="rifle" parent="weapons" instance=ExtResource( 2 )]
+
+[node name="grenade_launcher" parent="weapons" instance=ExtResource( 8 )]
+
+[node name="jump_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="armor_timer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="armor_timer" to="." method="_on_armor_timer_timeout"]

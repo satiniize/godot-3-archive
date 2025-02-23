@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Misc/tilemap.tres" type="TileSet" id=1]
+[ext_resource path="res://Scripts/Variant.gd" type="Script" id=2]
+
+[node name="Variant4" type="TileMap"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 12, 12 )
+format = 1
+tile_data = PoolIntArray( 0, 8, 0, 1, 8, 0, 2, 8, 0, 3, 8, 0, 4, 8, 0, 65536, 10, 0, 65537, 8, 0, 65538, 8, 0, 65539, 10, 0, 65540, 10, 0, 131072, 10, 0, 131073, 8, 0, 131074, 8, 0, 131075, 10, 0, 131076, 10, 0, 196608, 10, 0, 196609, 10, 0, 196610, 8, 0, 196611, 8, 0, 196612, 8, 0, 262144, 10, 0, 262145, 10, 0, 262146, 8, 0, 262147, 8, 0, 262148, 8, 0 )
+script = ExtResource( 2 )
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+
+[node name="Spawn1" type="Position2D" parent="SpawnLocations"]
+position = Vector2( 24, 24 )
+
+[node name="Spawn2" type="Position2D" parent="SpawnLocations"]
+position = Vector2( 48, 48 )
+
+[node name="Visibility" type="VisibilityEnabler2D" parent="."]
+position = Vector2( 30, 30 )
+scale = Vector2( 3, 3 )
+[connection signal="screen_exited" from="Visibility" to="." method="_on_Visibility_screen_exited"]

@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://entities/player/player.gd" type="Script" id=1]
+[ext_resource path="res://magic/fire.tscn" type="PackedScene" id=2]
+[ext_resource path="res://wip sprites/player_walk.png" type="Texture" id=3]
+[ext_resource path="res://sprites/Untitled.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 3.0
+
+[node name="player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 1 )
+cast_path = NodePath("cast")
+
+[node name="fire" parent="." instance=ExtResource( 2 )]
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+animation = "walk"
+frame = 1
+playing = true
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.2, 0.2 )
+smoothing_speed = 4.0
+
+[node name="vision" type="Light2D" parent="."]
+visible = false
+texture = ExtResource( 4 )
+texture_scale = 50.0
+mode = 2
+shadow_enabled = true
+shadow_color = Color( 0.0980392, 0.0901961, 0.0862745, 1 )
+
+[node name="cast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 32, 0 )
+collision_mask = 4
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -45.0
+margin_top = -14.0
+margin_right = 114.0
+margin_bottom = 17.0
+rect_scale = Vector2( 0.560002, 0.6 )
+text = "press ~ to generate level
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}

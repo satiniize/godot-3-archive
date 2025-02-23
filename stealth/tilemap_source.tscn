@@ -1,0 +1,210 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://sprites/Itch release tileset base 01.png" type="Texture" id=1]
+
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/Itch release tileset base 01.png-740300c44baefeea591ac31ac8aed38a.stex"
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -4, -4, 4, -4, 4, 4, -4, 4 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 4, 4 )
+
+[sub_resource type="StreamTexture" id=4]
+load_path = "res://.import/Itch release tileset base 01.png-740300c44baefeea591ac31ac8aed38a.stex"
+
+[sub_resource type="OccluderPolygon2D" id=5]
+polygon = PoolVector2Array( -4, -4, 4, -4, 4, 4, -4, 4 )
+
+[sub_resource type="NavigationPolygon" id=6]
+vertices = PoolVector2Array( -4, -4, 4, -4, 4, 4, -4, 4 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( -4, -4, 4, -4, 4, 4, -4, 4 ) ]
+
+[node name="tilemap_source" type="Node2D"]
+
+[node name="wall_occluded" type="Sprite" parent="."]
+texture = SubResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 8, 8, 8 )
+
+[node name="occluder" type="LightOccluder2D" parent="wall_occluded"]
+occluder = SubResource( 2 )
+
+[node name="wall" type="StaticBody2D" parent="wall_occluded"]
+
+[node name="collision" type="CollisionShape2D" parent="wall_occluded/wall"]
+shape = SubResource( 3 )
+
+[node name="wall_deccluded" type="Sprite" parent="."]
+position = Vector2( 32, 24 )
+texture = SubResource( 4 )
+region_enabled = true
+region_rect = Rect2( 48, 8, 8, 8 )
+
+[node name="occluder" type="LightOccluder2D" parent="wall_deccluded"]
+occluder = SubResource( 5 )
+
+[node name="floor" type="Sprite" parent="."]
+position = Vector2( 8, 0 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 80, 24, 8, 8 )
+
+[node name="nav" type="NavigationPolygonInstance" parent="floor"]
+navpoly = SubResource( 6 )
+
+[node name="floor2" type="Sprite" parent="."]
+position = Vector2( 16, 0 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 80, 32, 8, 8 )
+
+[node name="nav2" type="NavigationPolygonInstance" parent="floor2"]
+navpoly = SubResource( 6 )
+
+[node name="floor3" type="Sprite" parent="."]
+position = Vector2( 24, 0 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 128, 32, 8, 8 )
+
+[node name="nav3" type="NavigationPolygonInstance" parent="floor3"]
+navpoly = SubResource( 6 )
+
+[node name="floor4" type="Sprite" parent="."]
+position = Vector2( 32, 0 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 24, 8, 8 )
+
+[node name="nav4" type="NavigationPolygonInstance" parent="floor4"]
+navpoly = SubResource( 6 )
+
+[node name="floor5" type="Sprite" parent="."]
+position = Vector2( 0, 8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 72, 24, 8, 8 )
+
+[node name="nav5" type="NavigationPolygonInstance" parent="floor5"]
+navpoly = SubResource( 6 )
+
+[node name="floor6" type="Sprite" parent="."]
+position = Vector2( 8, 8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 72, 48, 8, 8 )
+
+[node name="nav6" type="NavigationPolygonInstance" parent="floor6"]
+navpoly = SubResource( 6 )
+
+[node name="floor7" type="Sprite" parent="."]
+position = Vector2( 16, 8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 104, 48, 8, 8 )
+
+[node name="nav7" type="NavigationPolygonInstance" parent="floor7"]
+navpoly = SubResource( 6 )
+
+[node name="floor8" type="Sprite" parent="."]
+position = Vector2( 24, 8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 88, 96, 8, 8 )
+
+[node name="nav8" type="NavigationPolygonInstance" parent="floor8"]
+navpoly = SubResource( 6 )
+
+[node name="floor9" type="Sprite" parent="."]
+position = Vector2( 32, 8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 136, 96, 8, 8 )
+
+[node name="nav9" type="NavigationPolygonInstance" parent="floor9"]
+navpoly = SubResource( 6 )
+
+[node name="floor10" type="Sprite" parent="."]
+position = Vector2( 0, 16 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 136, 104, 8, 8 )
+
+[node name="nav10" type="NavigationPolygonInstance" parent="floor10"]
+navpoly = SubResource( 6 )
+
+[node name="floor11" type="Sprite" parent="."]
+position = Vector2( 8, 16 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 152, 96, 8, 8 )
+
+[node name="nav11" type="NavigationPolygonInstance" parent="floor11"]
+navpoly = SubResource( 6 )
+
+[node name="floor12" type="Sprite" parent="."]
+position = Vector2( 16, 16 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 104, 104, 8, 8 )
+
+[node name="nav12" type="NavigationPolygonInstance" parent="floor12"]
+navpoly = SubResource( 6 )
+
+[node name="floor13" type="Sprite" parent="."]
+position = Vector2( 24, 16 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 192, 104, 8, 8 )
+
+[node name="nav13" type="NavigationPolygonInstance" parent="floor13"]
+navpoly = SubResource( 6 )
+
+[node name="floor14" type="Sprite" parent="."]
+position = Vector2( 32, 16 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 232, 144, 8, 8 )
+
+[node name="nav14" type="NavigationPolygonInstance" parent="floor14"]
+navpoly = SubResource( 6 )
+
+[node name="floor15" type="Sprite" parent="."]
+position = Vector2( 0, 24 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 240, 136, 8, 8 )
+
+[node name="nav15" type="NavigationPolygonInstance" parent="floor15"]
+navpoly = SubResource( 6 )
+
+[node name="floor16" type="Sprite" parent="."]
+position = Vector2( 8, 24 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 176, 32, 8, 8 )
+
+[node name="nav16" type="NavigationPolygonInstance" parent="floor16"]
+navpoly = SubResource( 6 )
+
+[node name="floor17" type="Sprite" parent="."]
+position = Vector2( 16, 24 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 208, 32, 8, 8 )
+
+[node name="nav17" type="NavigationPolygonInstance" parent="floor17"]
+navpoly = SubResource( 6 )
+
+[node name="floor18" type="Sprite" parent="."]
+position = Vector2( 24, 24 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 216, 32, 8, 8 )
+
+[node name="nav18" type="NavigationPolygonInstance" parent="floor18"]
+navpoly = SubResource( 6 )

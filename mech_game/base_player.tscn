@@ -1,0 +1,449 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://polygons.gd" type="Script" id=2]
+[ext_resource path="res://ik_controller.gd" type="Script" id=3]
+[ext_resource path="res://inner_frame.png" type="Texture" id=4]
+[ext_resource path="res://targets.gd" type="Script" id=5]
+[ext_resource path="res://drone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://hud.tscn" type="PackedScene" id=7]
+[ext_resource path="res://armor/plastic.tres" type="Material" id=8]
+[ext_resource path="res://Untitled.png" type="Texture" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5, 23 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+uniform vec4 color: hint_color;
+uniform vec4 eye_color: hint_color;
+void fragment(){
+	vec4 read = texture(TEXTURE, UV);
+	if ((read.r + read.g + read.b) / 3.0 > 0.733){
+		COLOR = read * color;
+	}
+	else if(read.g > 0.99){
+		COLOR = eye_color * read.a;
+	}
+	else{
+		COLOR = read;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.615686, 0.470588, 0.415686, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.905882, 0, 0, 1 )
+shader_param/eye_color = Color( 0, 0.835294, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.776471, 0.776471, 0.776471, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.262745, 0.196078, 0.196078, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.709804, 0.443137, 0.443137, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.717647, 0.294118, 0.294118, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.478431, 0.0862745, 0.0862745, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.764706, 0.286275, 0.286275, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 2 )
+shader_param/color = Color( 0.815686, 0.388235, 0.388235, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Animation" id=12]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../targets/arm_L:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 21, 6.355 ), Vector2( 2, 23 ), Vector2( -23, 14 ), Vector2( -24, 5 ), Vector2( 2, 11 ) ]
+}
+
+[node name="base_player" type="KinematicBody2D"]
+collision_mask = 2
+script = ExtResource( 1 )
+missile = ExtResource( 6 )
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -8 )
+z_index = 37
+shape = SubResource( 1 )
+
+[node name="polygons" type="Node2D" parent="."]
+script = ExtResource( 2 )
+color = [ Color( 1, 0, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 0.509804, 0, 0, 1 ), Color( 0, 0, 1, 1 ), Color( 0, 0, 0.533333, 1 ), Color( 1, 1, 0, 1 ), Color( 0.501961, 0.501961, 0, 1 ), Color( 0, 1, 0, 1 ), Color( 0, 0.552941, 0, 1 ) ]
+eye_color = Color( 0, 0.835294, 1, 1 )
+
+[node name="body" type="Polygon2D" parent="polygons"]
+material = SubResource( 3 )
+position = Vector2( -11, -32 )
+texture = ExtResource( 4 )
+skeleton = NodePath("../../skeleton")
+polygon = PoolVector2Array( 1, 10, 19, 10, 19, 44, 1, 44 )
+uv = PoolVector2Array( 1, 10, 19, 10, 19, 44, 1, 44 )
+bones = [ "body", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="head" type="Polygon2D" parent="polygons/body"]
+material = SubResource( 4 )
+position = Vector2( 5, -57 )
+z_index = 1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../skeleton")
+polygon = PoolVector2Array( 0.999996, 58, 12, 58, 12, 69, 0.999996, 69 )
+uv = PoolVector2Array( 0.999996, 58, 12, 58, 12, 69, 0.999996, 69 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 1, 1, 1, 1 ) ]
+
+[node name="bicep_L" type="Polygon2D" parent="polygons/body"]
+material = SubResource( 5 )
+position = Vector2( -22, 14 )
+z_index = 2
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../skeleton")
+polygon = PoolVector2Array( 21, 1, 28, 1, 28, 20, 21, 20 )
+uv = PoolVector2Array( 21, 1, 28, 1, 28, 20, 21, 20 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="elbow_L" type="Polygon2D" parent="polygons/body/bicep_L"]
+use_parent_material = true
+position = Vector2( -2, -36 )
+z_index = 1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../skeleton")
+polygon = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+uv = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="forearm_L" type="Polygon2D" parent="polygons/body/bicep_L/elbow_L"]
+material = SubResource( 6 )
+position = Vector2( 2, 36 )
+z_index = -1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../skeleton")
+polygon = PoolVector2Array( 21, 21, 27, 21, 27, 42, 21, 42 )
+uv = PoolVector2Array( 21, 21, 27, 21, 27, 42, 21, 42 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="hand_L" type="Polygon2D" parent="polygons/body/bicep_L/elbow_L/forearm_L"]
+use_parent_material = true
+position = Vector2( 11, -4 )
+z_index = 1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../../skeleton")
+polygon = PoolVector2Array( 10, 45, 18, 45, 18, 57, 10, 57 )
+uv = PoolVector2Array( 10, 45, 18, 45, 18, 57, 10, 57 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="thigh_L" type="Polygon2D" parent="polygons/body"]
+material = SubResource( 7 )
+position = Vector2( -25, 37 )
+z_index = 1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../skeleton")
+polygon = PoolVector2Array( 29, 1, 36, 1, 36, 31, 29, 31 )
+uv = PoolVector2Array( 29, 1, 36, 1, 36, 31, 29, 31 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="knee_L" type="Polygon2D" parent="polygons/body/thigh_L"]
+use_parent_material = true
+position = Vector2( 6, -25 )
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../skeleton")
+polygon = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+uv = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="calf_L" type="Polygon2D" parent="polygons/body/thigh_L/knee_L"]
+material = ExtResource( 8 )
+position = Vector2( -6, 25 )
+z_index = -1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../skeleton")
+polygon = PoolVector2Array( 29, 32, 35, 32, 35, 65, 29, 65 )
+uv = PoolVector2Array( 29, 32, 35, 32, 35, 65, 29, 65 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="foot_L" type="Polygon2D" parent="polygons/body/thigh_L/knee_L/calf_L"]
+use_parent_material = true
+position = Vector2( 15, 1 )
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../../skeleton")
+polygon = PoolVector2Array( 14, 62, 27, 62, 27, 69, 14, 69 )
+uv = PoolVector2Array( 14, 62, 27, 62, 27, 69, 14, 69 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="thigh_R" type="Polygon2D" parent="polygons/body"]
+material = SubResource( 8 )
+position = Vector2( -20, 37 )
+z_index = -1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../skeleton")
+polygon = PoolVector2Array( 29, 1, 36, 1, 36, 31, 29, 31 )
+uv = PoolVector2Array( 29, 1, 36, 1, 36, 31, 29, 31 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R/hand_R", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="knee_R" type="Polygon2D" parent="polygons/body/thigh_R"]
+use_parent_material = true
+position = Vector2( 6, -25 )
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../skeleton")
+polygon = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+uv = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R/hand_R", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="calf_R" type="Polygon2D" parent="polygons/body/thigh_R/knee_R"]
+material = SubResource( 9 )
+position = Vector2( -6, 25 )
+z_index = -1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../skeleton")
+polygon = PoolVector2Array( 29, 32, 35, 32, 35, 65, 29, 65 )
+uv = PoolVector2Array( 29, 32, 35, 32, 35, 65, 29, 65 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 1, 1, 1, 1 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R/hand_R", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="foot_R" type="Polygon2D" parent="polygons/body/thigh_R/knee_R/calf_R"]
+use_parent_material = true
+position = Vector2( 15, 1 )
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../../skeleton")
+polygon = PoolVector2Array( 14, 62, 27, 62, 27, 69, 14, 69 )
+uv = PoolVector2Array( 14, 62, 27, 62, 27, 69, 14, 69 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R/hand_R", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="bicep_R" type="Polygon2D" parent="polygons/body"]
+material = SubResource( 10 )
+position = Vector2( -7, 14 )
+z_index = -2
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../skeleton")
+polygon = PoolVector2Array( 21, 1, 28, 1, 28, 20, 21, 20 )
+uv = PoolVector2Array( 21, 1, 28, 1, 28, 20, 21, 20 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_R/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="elbow_R" type="Polygon2D" parent="polygons/body/bicep_R"]
+use_parent_material = true
+position = Vector2( -2, -36 )
+z_index = -2
+z_as_relative = false
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../skeleton")
+polygon = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+uv = PoolVector2Array( 24, 51, 28, 51, 28, 62, 24, 62 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_R/elbow_R/forearm_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="forearm_R" type="Polygon2D" parent="polygons/body/bicep_R/elbow_R"]
+material = SubResource( 11 )
+position = Vector2( 2, 36 )
+z_index = -1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../skeleton")
+polygon = PoolVector2Array( 21, 21, 27, 21, 27, 42, 21, 42 )
+uv = PoolVector2Array( 21, 21, 27, 21, 27, 42, 21, 42 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R", PoolRealArray( 1, 1, 1, 1 ), "body/bicep_R/elbow_R/forearm_R/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="hand_R" type="Polygon2D" parent="polygons/body/bicep_R/elbow_R/forearm_R"]
+use_parent_material = true
+position = Vector2( 19, 40 )
+z_index = 1
+texture = ExtResource( 4 )
+skeleton = NodePath("../../../../../../skeleton")
+polygon = PoolVector2Array( 1, 1, 9, 1, 9, 9, 1, 9 )
+uv = PoolVector2Array( 1, 1, 9, 1, 9, 9, 1, 9 )
+bones = [ "body", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_L/elbow_L/forearm_L/hand_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_L/knee_L/calf_L/foot_L", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R", PoolRealArray( 0, 0, 0, 0 ), "body/thigh_R/knee_R/calf_R/foot_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R", PoolRealArray( 0, 0, 0, 0 ), "body/bicep_R/elbow_R/forearm_R/hand_R", PoolRealArray( 1, 1, 1, 1 ), "body/head", PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="skeleton" type="Skeleton2D" parent="."]
+
+[node name="body" type="Bone2D" parent="skeleton"]
+rest = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="bicep_L" type="Bone2D" parent="skeleton/body"]
+position = Vector2( -8, -14 )
+rest = Transform2D( 1, 0, 0, 1, -8, -14 )
+
+[node name="elbow_L" type="Bone2D" parent="skeleton/body/bicep_L"]
+position = Vector2( -1, 13 )
+rest = Transform2D( 1, 0, 0, 1, -1, 13 )
+
+[node name="forearm_L" type="Bone2D" parent="skeleton/body/bicep_L/elbow_L"]
+position = Vector2( 0, 7 )
+rest = Transform2D( 1, 0, 0, 1, 0, 7 )
+
+[node name="hand_L" type="Bone2D" parent="skeleton/body/bicep_L/elbow_L/forearm_L"]
+position = Vector2( 0, 17 )
+rotation = 1.5708
+rest = Transform2D( -3.61999e-06, 1, -1, -3.61999e-06, 0, 17 )
+default_length = 10.0
+
+[node name="thigh_L" type="Bone2D" parent="skeleton/body"]
+position = Vector2( -3, 9 )
+rest = Transform2D( 1, 0, 0, 1, -3, 9 )
+
+[node name="knee_L" type="Bone2D" parent="skeleton/body/thigh_L"]
+position = Vector2( -1, 24 )
+rest = Transform2D( 1, 0, 0, 1, -1, 24 )
+
+[node name="calf_L" type="Bone2D" parent="skeleton/body/thigh_L/knee_L"]
+position = Vector2( 0, 7 )
+rest = Transform2D( 1, 0, 0, 1, 0, 7 )
+
+[node name="foot_L" type="Bone2D" parent="skeleton/body/thigh_L/knee_L/calf_L"]
+position = Vector2( 0, 28 )
+rotation = 0.610865
+rest = Transform2D( 0.819152, 0.573576, -0.573576, 0.819152, 0, 28 )
+default_length = 10.0
+
+[node name="thigh_R" type="Bone2D" parent="skeleton/body"]
+position = Vector2( 2, 9 )
+rest = Transform2D( 1, 0, 0, 1, 2, 9 )
+
+[node name="knee_R" type="Bone2D" parent="skeleton/body/thigh_R"]
+position = Vector2( -1, 24 )
+rest = Transform2D( 1, 0, 0, 1, -1, 24 )
+
+[node name="calf_R" type="Bone2D" parent="skeleton/body/thigh_R/knee_R"]
+position = Vector2( 0, 7 )
+rest = Transform2D( 1, 0, 0, 1, 0, 7 )
+
+[node name="foot_R" type="Bone2D" parent="skeleton/body/thigh_R/knee_R/calf_R"]
+position = Vector2( 0, 28 )
+rotation = 0.610865
+rest = Transform2D( 0.819152, 0.573576, -0.573576, 0.819152, 0, 28 )
+default_length = 10.0
+
+[node name="bicep_R" type="Bone2D" parent="skeleton/body"]
+position = Vector2( 7, -14 )
+rest = Transform2D( 1, 0, 0, 1, 7, -14 )
+
+[node name="elbow_R" type="Bone2D" parent="skeleton/body/bicep_R"]
+position = Vector2( -1, 13 )
+rest = Transform2D( 1, 0, 0, 1, -1, 13 )
+
+[node name="forearm_R" type="Bone2D" parent="skeleton/body/bicep_R/elbow_R"]
+position = Vector2( 0, 7 )
+rest = Transform2D( 1, 0, 0, 1, 0, 7 )
+
+[node name="hand_R" type="Bone2D" parent="skeleton/body/bicep_R/elbow_R/forearm_R"]
+position = Vector2( 0, 17 )
+rotation = 1.5708
+rest = Transform2D( -3.61999e-06, 1, -1, -3.61999e-06, 0, 17 )
+default_length = 10.0
+
+[node name="Untitled" type="Sprite" parent="skeleton/body/bicep_R/elbow_R/forearm_R/hand_R"]
+position = Vector2( 9, -2.00003 )
+texture = ExtResource( 9 )
+
+[node name="head" type="Bone2D" parent="skeleton/body"]
+position = Vector2( 0, -22 )
+rotation = -1.5708
+rest = Transform2D( -3.61999e-06, -1, 1, -3.61999e-06, 0, -22 )
+default_length = 8.0
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+
+[node name="anim" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 12 )
+
+[node name="targets" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="step_cast_F" type="RayCast2D" parent="targets"]
+position = Vector2( 33, 0 )
+enabled = true
+cast_to = Vector2( 0, 128 )
+collision_mask = 2
+
+[node name="step_cast_M" type="RayCast2D" parent="targets"]
+position = Vector2( 21, 0 )
+enabled = true
+cast_to = Vector2( 0, 128 )
+collision_mask = 2
+
+[node name="step_cast_N" type="RayCast2D" parent="targets"]
+position = Vector2( 9, 0 )
+enabled = true
+cast_to = Vector2( 0, 128 )
+collision_mask = 2
+
+[node name="body" type="Position2D" parent="targets"]
+
+[node name="arm_L" type="Position2D" parent="targets"]
+position = Vector2( -8, 17 )
+
+[node name="arm_R" type="Position2D" parent="targets"]
+position = Vector2( 7, 17 )
+
+[node name="leg_L" type="RayCast2D" parent="targets"]
+position = Vector2( -16, 72 )
+enabled = true
+cast_to = Vector2( 0, 128 )
+collision_mask = 2
+
+[node name="leg_R" type="RayCast2D" parent="targets"]
+position = Vector2( 16, 72 )
+enabled = true
+cast_to = Vector2( 0, 128 )
+collision_mask = 2
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = 31.0
+margin_right = 71.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ik_controller" type="Node2D" parent="."]
+script = ExtResource( 3 )
+body_path = NodePath("../skeleton/body")
+bicep_L_path = NodePath("../skeleton/body/bicep_L")
+hand_L_path = NodePath("../skeleton/body/bicep_L/elbow_L/forearm_L/hand_L")
+bicep_R_path = NodePath("../skeleton/body/bicep_R")
+hand_R_path = NodePath("../skeleton/body/bicep_R/elbow_R/forearm_R/hand_R")
+thigh_L_path = NodePath("../skeleton/body/thigh_L")
+thigh_R_path = NodePath("../skeleton/body/thigh_R")
+body_target_path = NodePath("../targets/body")
+arm_target_L_path = NodePath("../targets/arm_L")
+arm_target_R_path = NodePath("../targets/arm_R")
+leg_target_L_path = NodePath("../targets/leg_L")
+leg_target_R_path = NodePath("../targets/leg_R")
+
+[node name="feet_cast" type="RayCast2D" parent="."]
+position = Vector2( -1, 9 )
+enabled = true
+cast_to = Vector2( 0, 66 )
+collision_mask = 2
+
+[node name="hud" parent="." instance=ExtResource( 7 )]

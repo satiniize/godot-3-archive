@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform vec4 color: hint_color;
+uniform vec4 eye_color: hint_color;
+void fragment(){
+	vec4 read = texture(TEXTURE, UV);
+	if ((read.r + read.g + read.b) / 3.0 > 0.733){
+		COLOR = read * color;
+	}
+	else if(read.g > 0.99){
+		COLOR = eye_color * read.a;
+	}
+	else{
+		COLOR = read;
+	}
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/eye_color = Color( 1, 1, 1, 1 )

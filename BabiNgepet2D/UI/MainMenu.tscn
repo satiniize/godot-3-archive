@@ -1,0 +1,206 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://UI/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/mainfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/mainmenuart.png" type="Texture" id=3]
+[ext_resource path="res://Levels/Level0.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/levelsselected.png" type="Texture" id=5]
+[ext_resource path="res://UI/closebuttonpressed.png" type="Texture" id=6]
+[ext_resource path="res://UI/levels.png" type="Texture" id=7]
+[ext_resource path="res://UI/menu9patch.png" type="Texture" id=8]
+[ext_resource path="res://UI/closebutton.png" type="Texture" id=9]
+[ext_resource path="res://UI/startbutton.png" type="Texture" id=10]
+[ext_resource path="res://UI/startbuttonpressed.png" type="Texture" id=11]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+levels = [ ExtResource( 4 ), null, null, null, null ]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 9
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 9
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 16.0
+margin_top = 9.0
+margin_right = 1264.0
+margin_bottom = 711.0
+custom_constants/separation = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 1248.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 2 )
+text = "BABI NGEPET GAMING"
+
+[node name="Start" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+margin_top = 33.0
+margin_right = 1248.0
+margin_bottom = 65.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+
+[node name="Options" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+margin_top = 73.0
+margin_right = 1248.0
+margin_bottom = 105.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+
+[node name="Exit" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+margin_top = 113.0
+margin_right = 1248.0
+margin_bottom = 145.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+
+[node name="Popup" type="Popup" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 18
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 18
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Popup/MarginContainer"]
+margin_left = 32.0
+margin_top = 18.0
+margin_right = 1248.0
+margin_bottom = 702.0
+texture = ExtResource( 8 )
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="CenterContainer" type="CenterContainer" parent="Popup/MarginContainer"]
+margin_left = 32.0
+margin_top = 18.0
+margin_right = 1248.0
+margin_bottom = 702.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/MarginContainer/CenterContainer"]
+margin_left = 520.0
+margin_top = 297.0
+margin_right = 696.0
+margin_bottom = 387.0
+custom_constants/separation = 5
+alignment = 2
+
+[node name="ClosePopupStart" type="TextureButton" parent="Popup/MarginContainer/CenterContainer/VBoxContainer"]
+margin_right = 176.0
+margin_bottom = 16.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup/MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 21.0
+margin_right = 176.0
+margin_bottom = 53.0
+
+[node name="Level0" type="TextureButton" parent="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+toggle_mode = true
+pressed = true
+action_mode = 0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 5 )
+
+[node name="Level1" type="TextureButton" parent="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 32.0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 5 )
+
+[node name="Level2" type="TextureButton" parent="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 32.0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 5 )
+
+[node name="Level3" type="TextureButton" parent="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 108.0
+margin_right = 140.0
+margin_bottom = 32.0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 5 )
+
+[node name="Level4" type="TextureButton" parent="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 144.0
+margin_right = 176.0
+margin_bottom = 32.0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 5 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Popup/MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 58.0
+margin_right = 176.0
+margin_bottom = 90.0
+
+[node name="LevelSelect" type="TextureButton" parent="Popup/MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
+margin_left = 40.0
+margin_right = 136.0
+margin_bottom = 32.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Popup/MarginContainer/CenterContainer/VBoxContainer/ClosePopupStart" to="." method="_on_ClosePopupStart_pressed"]
+[connection signal="button_down" from="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Level0" to="." method="_on_Level0_button_down"]
+[connection signal="button_down" from="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Level1" to="." method="_on_Level1_button_down"]
+[connection signal="button_down" from="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Level2" to="." method="_on_Level2_button_down"]
+[connection signal="button_down" from="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Level3" to="." method="_on_Level3_button_down"]
+[connection signal="button_down" from="Popup/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Level4" to="." method="_on_Level4_button_down"]
+[connection signal="pressed" from="Popup/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/LevelSelect" to="." method="_on_LevelSelect_pressed"]

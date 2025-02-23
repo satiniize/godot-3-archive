@@ -1,0 +1,155 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Wheel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://NewCar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://asphalt/asphalt_02_diff_2k.jpg" type="Texture" id=5]
+[ext_resource path="res://Car.tscn" type="PackedScene" id=6]
+[ext_resource path="res://kloppenheim_06.jpg" type="Texture" id=8]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Spatial
+
+func _physics_process(delta):
+	rotation.z += delta
+#	print(global_transform[2])
+#	print($RayCast.cast_to)
+"
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.1
+bottom_radius = 0.1
+
+[sub_resource type="CylinderMesh" id=3]
+top_radius = 0.001
+bottom_radius = 0.25
+height = 0.5
+
+[sub_resource type="PanoramaSky" id=4]
+panorama = ExtResource( 8 )
+
+[sub_resource type="Environment" id=5]
+background_mode = 2
+background_sky = SubResource( 4 )
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends RigidBody
+
+var target_pos
+var spring_constant = 100.0
+
+func _ready():
+	target_pos = global_transform.origin
+
+func _integrate_forces(state):
+	var current_pos = global_transform.origin
+	var force = (target_pos - current_pos) * spring_constant
+	add_central_force(force)
+	angular_velocity = Vector3.ZERO
+"
+
+[sub_resource type="CubeMesh" id=7]
+size = Vector3( 2, 0.25, 2 )
+
+[sub_resource type="ConvexPolygonShape" id=8]
+points = PoolVector3Array( -1, 0.125, 1, 1, 0.125, -1, 1, 0.125, 1, -1, 0.125, -1, -1, -0.125, 1, 1, -0.125, -1, 1, -0.125, 1, -1, -0.125, -1, 1, 0.125, 1, -1, 0.125, -1, 1, 0.125, -1, -1, 0.125, 1, 1, -0.125, 1, -1, -0.125, -1, 1, -0.125, -1, -1, -0.125, 1, 1, 0.125, 1, -1, -0.125, 1, -1, 0.125, 1, 1, -0.125, 1, 1, 0.125, -1, -1, -0.125, -1, -1, 0.125, -1, 1, -0.125, -1 )
+
+[sub_resource type="SpatialMaterial" id=9]
+
+[sub_resource type="CubeMesh" id=10]
+material = SubResource( 9 )
+size = Vector3( 1, 1, 1 )
+
+[sub_resource type="ConvexPolygonShape" id=11]
+points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_texture = ExtResource( 5 )
+uv1_triplanar = true
+uv1_triplanar_sharpness = 1.0
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=14]
+material = SubResource( 13 )
+radius = 0.2
+height = 0.4
+
+[node name="DebugStage" type="Spatial"]
+
+[node name="NewCar" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -11 )
+
+[node name="Wheel" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -4 )
+marker = NodePath("../MeshInstance")
+
+[node name="Car" parent="." instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -6 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.707107, 0.612372, -0.353553, 0, 0.5, 0.866025, 0.707107, -0.612372, 0.353553, 0, 2, 0 )
+shadow_enabled = true
+
+[node name="MeshInstance3" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.5, -5 )
+script = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance3"]
+mesh = SubResource( 2 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="MeshInstance3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 3 )
+
+[node name="RayCast" type="RayCast" parent="MeshInstance3"]
+enabled = true
+cast_to = Vector3( 0, 2, 0 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5 )
+linear_damp = 1.0
+angular_damp = 100.0
+script = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+mesh = SubResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+shape = SubResource( 8 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.22727, 3, 0 )
+
+[node name="RigidBody2" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -5 )
+mass = 5.0
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody2"]
+mesh = SubResource( 10 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="RigidBody2"]
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+use_collision = true
+width = 2000.0
+depth = 2000.0
+material = SubResource( 12 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox"]
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 1, 0 )
+width = 8.0
+depth = 4.0
+
+[node name="CSGBox2" type="CSGBox" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 24 )
+height = 4.0
+depth = 42.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, -5 )
+mesh = SubResource( 14 )

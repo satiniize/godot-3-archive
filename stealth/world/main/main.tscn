@@ -1,0 +1,57 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://world/variants/variant5.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/variants/variant1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/variants/variant2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://world/variants/variant3.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://world/variants/variant4.tscn" type="PackedScene" id=6]
+[ext_resource path="res://world/main/main.gd" type="Script" id=7]
+[ext_resource path="res://entities/enemies/enemy1.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/heal/heal.tscn" type="PackedScene" id=10]
+[ext_resource path="res://world/end_portal.tscn" type="PackedScene" id=11]
+[ext_resource path="res://world/tilemap/tilemap_v3.tres" type="TileSet" id=12]
+[ext_resource path="res://theme.shader" type="Shader" id=13]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 13 )
+shader_param/color = Plane( 1, 1, 1, 1 )
+
+[node name="main" type="Node2D"]
+script = ExtResource( 7 )
+finish_portal = ExtResource( 11 )
+variant1 = ExtResource( 2 )
+variant2 = ExtResource( 3 )
+variant3 = ExtResource( 4 )
+variant4 = ExtResource( 6 )
+variant5 = ExtResource( 1 )
+enemy1 = ExtResource( 9 )
+heal = ExtResource( 10 )
+nav_path = NodePath("rooms")
+
+[node name="rooms" type="Navigation2D" parent="."]
+
+[node name="test" type="TileMap" parent="rooms"]
+material = SubResource( 1 )
+tile_set = ExtResource( 12 )
+cell_size = Vector2( 8, 8 )
+bake_navigation = true
+format = 1
+
+[node name="room_setup" type="Node2D" parent="."]
+visible = false
+
+[node name="enemies" type="Node2D" parent="."]
+
+[node name="player" parent="." instance=ExtResource( 5 )]
+position = Vector2( 46, 44 )
+
+[node name="world_cooldown" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="enemy_spawn" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="world_cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="enemy_spawn" to="." method="_on_enemy_spawn_timeout"]

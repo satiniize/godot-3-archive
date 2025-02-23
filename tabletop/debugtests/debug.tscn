@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://enemies/minion/minion.tscn" type="PackedScene" id=2]
+[ext_resource path="res://debugtests/debug.gd" type="Script" id=3]
+[ext_resource path="res://0x72_DungeonTilesetII_v1.4.png" type="Texture" id=4]
+[ext_resource path="res://trash/warrior/warrior.tscn" type="PackedScene" id=5]
+[ext_resource path="res://warriorhud.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/hud/hud.tscn" type="PackedScene" id=7]
+[ext_resource path="res://minionleader.tscn" type="PackedScene" id=8]
+
+[sub_resource type="Environment" id=1]
+glow_enabled = true
+
+[node name="Debug" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="FloorTiles" type="TileMap" parent="Navigation2D"]
+z_index = -1206
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="End" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 80, 176, 16, 16 )
+
+[node name="Start" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 80, 176, 16, 16 )
+
+[node name="WarriorHUD" parent="." instance=ExtResource( 6 )]
+
+[node name="GameMasterHUD" parent="." instance=ExtResource( 7 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Warrior" parent="." instance=ExtResource( 5 )]
+
+[node name="Minion" parent="." instance=ExtResource( 2 )]
+player_path = NodePath("../Warrior")
+
+[node name="Minion2" parent="." instance=ExtResource( 2 )]
+player_path = NodePath("../Warrior")
+
+[node name="Minion3" parent="." instance=ExtResource( 2 )]
+player_path = NodePath("../Warrior")
+
+[node name="Minion4" parent="." instance=ExtResource( 2 )]
+player_path = NodePath("../Warrior")
+
+[node name="Minion5" parent="." instance=ExtResource( 2 )]
+player_path = NodePath("../Warrior")
+
+[node name="MinionLeader" parent="." instance=ExtResource( 8 )]
+player_path = NodePath("../Warrior")
+speed = 56.0

@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://_unused/tilemapv2.tres" type="TileSet" id=1]
+[ext_resource path="res://debug/Node2D.gd" type="Script" id=2]
+[ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=4]
+
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform int bruh = 69;
+//void fragment()
+//{
+//
+//}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/bruh = 69
+
+[sub_resource type="CanvasItemMaterial" id=7]
+blend_mode = 3
+
+[sub_resource type="OpenSimplexNoise" id=5]
+seed = -12
+octaves = 9
+period = 2.8
+persistence = 1.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=6]
+flags = 3
+width = 64
+height = 64
+noise = SubResource( 5 )
+
+[node name="Node2D" type="Node2D"]
+material = SubResource( 2 )
+position = Vector2( 0, -1 )
+script = ExtResource( 2 )
+
+[node name="player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 29, 32 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 0, 1 )
+rotation = 1.5708
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource( 7 )
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 155.0
+margin_bottom = 99.0
+texture = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

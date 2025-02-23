@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://carv2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://KinematicCar.gd" type="Script" id=2]
+[ext_resource path="res://70068__demarkracy__cardrifting.wav" type="AudioStream" id=3]
+[ext_resource path="res://390787__mhad__engine-idle.wav" type="AudioStream" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.9, 0.6, 2 )
+
+[node name="KinematicCar" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="FollowCamera" type="ClippedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5 )
+fov = 90.0
+
+[node name="BumperCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+current = true
+fov = 90.0
+
+[node name="carv2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.6, 0 )
+
+[node name="EngineSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_size = 10.0
+autoplay = true
+
+[node name="SkidSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+unit_db = -40.0
+unit_size = 4.0
+autoplay = true

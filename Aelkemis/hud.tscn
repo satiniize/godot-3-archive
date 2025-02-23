@@ -1,0 +1,129 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://stat_button.tscn" type="PackedScene" id=1]
+[ext_resource path="res://bar_back.png" type="Texture" id=2]
+[ext_resource path="res://hud.gd" type="Script" id=3]
+[ext_resource path="res://bar_front.png" type="Texture" id=4]
+[ext_resource path="res://armor_bar.png" type="Texture" id=5]
+[ext_resource path="res://universal_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://stat_label.png" type="Texture" id=7]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform vec4 color: hint_color;
+
+void fragment(){
+	vec4 tex_read = texture(TEXTURE, UV);
+	COLOR = color * tex_read;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/color = Color( 1, 0.501961, 0.501961, 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/color = Color( 0.501961, 1, 0.501961, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/color = Color( 0.501961, 0.501961, 1, 1 )
+
+[node name="hud" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="armor_bar" type="TextureProgress" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = -90.0
+margin_right = 40.0
+margin_bottom = 11.0
+value = 100.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 4 )
+fill_mode = 4
+tint_progress = Color( 0.588235, 0.627451, 0.764706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health_bar" type="TextureProgress" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = -90.0
+margin_right = 40.0
+margin_bottom = 11.0
+value = 100.0
+texture_progress = ExtResource( 5 )
+fill_mode = 4
+tint_progress = Color( 1, 0.501961, 0.501961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color( 1, 0.501961, 0.501961, 1 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = -72.0
+margin_right = 74.0
+margin_bottom = 58.0
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="points" type="Label" parent="TextureRect"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 9.0
+margin_top = -125.0
+margin_right = 25.0
+margin_bottom = -55.0
+custom_fonts/font = ExtResource( 6 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -55.0
+margin_right = 116.0
+custom_constants/separation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stat_button" parent="vbox" instance=ExtResource( 1 )]
+material = SubResource( 2 )
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 111.0
+margin_bottom = 16.0
+
+[node name="stat_button2" parent="vbox" instance=ExtResource( 1 )]
+material = SubResource( 3 )
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 17.0
+margin_right = 111.0
+margin_bottom = 33.0
+stat_of = 1
+
+[node name="stat_button3" parent="vbox" instance=ExtResource( 1 )]
+material = SubResource( 4 )
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 111.0
+margin_bottom = 50.0
+stat_of = 2

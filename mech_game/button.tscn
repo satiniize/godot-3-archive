@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://button.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6, 1 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "press"
+tracks/0/type = "value"
+tracks/0/path = NodePath("press_area/CollisionShape2D3:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 2 ), Vector2( 0, 0 ) ]
+}
+
+[node name="button" type="StaticBody2D"]
+script = ExtResource( 1 )
+
+[node name="press_area" type="Area2D" parent="."]
+position = Vector2( 0, -2 )
+collision_layer = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="press_area"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D3" type="Polygon2D" parent="press_area"]
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( -6, -1, 6, -1, 6, 1, -6, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( -8, -1, 8, -1, 8, 1, -8, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/press = SubResource( 3 )
+[connection signal="body_entered" from="press_area" to="." method="_on_press_area_body_entered"]
