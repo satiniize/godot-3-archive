@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://hud/hud.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gameworld/entities/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/kenney_prototype_textures/dark/texture_01.png" type="Texture" id=3]
+[ext_resource path="res://portal.gd" type="Script" id=4]
+[ext_resource path="res://items/dropped_item.tscn" type="PackedScene" id=5]
+[ext_resource path="res://gameworld/entities/enemy0.tscn" type="PackedScene" id=6]
+[ext_resource path="res://gameworld/objects/door.tscn" type="PackedScene" id=7]
+
+[sub_resource type="SpatialMaterial" id=32]
+albedo_texture = ExtResource( 3 )
+uv1_triplanar = true
+
+[node name="debug" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -2 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+material_override = SubResource( 32 )
+use_collision = true
+width = 18.0
+height = 0.2
+depth = 18.0
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, 0, 16, 0 )
+light_energy = 2.0
+shadow_enabled = true
+spot_range = 23.0
+
+[node name="HUD" parent="." instance=ExtResource( 1 )]
+player_path = NodePath("../Player")
+
+[node name="DroppedItem" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.2, 7 )
+item_id = "lantern"
+
+[node name="DroppedItem2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 7 )
+item_id = "flashlight"
+
+[node name="DroppedItem3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.2, 7 )
+item_id = "sickle"
+
+[node name="KuntilAnak" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0 )
+player_path = NodePath("../Player")
+
+[node name="Door" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )

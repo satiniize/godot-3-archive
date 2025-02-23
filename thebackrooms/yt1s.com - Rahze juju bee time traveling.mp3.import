@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/yt1s.com - Rahze juju bee time traveling.mp3-598cb864f8a3f8d0ac35a76d5358ee2d.mp3str"
+
+[deps]
+
+source_file="res://yt1s.com - Rahze juju bee time traveling.mp3"
+dest_files=[ "res://.import/yt1s.com - Rahze juju bee time traveling.mp3-598cb864f8a3f8d0ac35a76d5358ee2d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

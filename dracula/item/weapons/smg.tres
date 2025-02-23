@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://item/weapons/smg.gd" type="Script" id=1]
+[ext_resource path="res://addons/396276__greenfiresound__smg-firing-04.wav" type="AudioStream" id=2]
+[ext_resource path="res://addons/163458__lemudcrab__grenade-launcher.wav" type="AudioStream" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = ""
+world_recoil = 0.0
+aim_recoil = 0.05
+bullet_count = 1
+spread = 0.0
+screen_shake = 0.0
+phase_speed = 0.0
+draw_speed = 0.0
+sheathe_speed = 0.0
+primary_cooldown = 0.1
+secondary_cooldown = 0.5
+primary_sound = ExtResource( 2 )
+secondary_sound = ExtResource( 3 )

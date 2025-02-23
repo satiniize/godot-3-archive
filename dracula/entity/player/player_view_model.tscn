@@ -1,0 +1,161 @@
+[gd_scene load_steps=8 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="ArrayMesh" id=2]
+resource_name = "Cube006"
+surfaces/0 = {
+"aabb": AABB( -0.05, -0.15, -0.05, 0.1, 0.225, 0.10001 ),
+"array_data": PoolByteArray( 0, 0, 0, 0, 154, 153, 25, 190, 205, 204, 76, 61, 192, 176, 74, 0, 109, 210, 43, 127, 0, 48, 0, 52, 0, 0, 0, 0, 154, 153, 25, 190, 205, 204, 76, 61, 192, 176, 74, 0, 187, 96, 43, 127, 0, 54, 0, 0, 0, 0, 0, 0, 154, 153, 25, 190, 205, 204, 76, 61, 192, 176, 74, 0, 187, 96, 43, 127, 0, 54, 0, 60, 205, 204, 76, 189, 154, 153, 153, 61, 205, 204, 76, 61, 175, 65, 71, 0, 47, 108, 211, 127, 0, 57, 0, 0, 205, 204, 76, 189, 154, 153, 153, 61, 205, 204, 76, 61, 175, 65, 71, 0, 32, 106, 196, 127, 0, 57, 0, 60, 205, 204, 76, 189, 154, 153, 153, 61, 205, 204, 76, 61, 175, 65, 71, 0, 159, 202, 196, 127, 0, 59, 0, 52, 0, 0, 0, 0, 154, 153, 25, 190, 205, 204, 76, 189, 192, 176, 182, 0, 109, 210, 213, 127, 0, 48, 0, 56, 0, 0, 0, 0, 154, 153, 25, 190, 205, 204, 76, 189, 192, 176, 182, 0, 194, 98, 205, 127, 0, 54, 0, 58, 205, 204, 76, 189, 154, 153, 153, 61, 205, 204, 76, 189, 175, 65, 185, 0, 32, 106, 60, 127, 0, 57, 0, 58, 205, 204, 76, 189, 154, 153, 153, 61, 205, 204, 76, 189, 175, 65, 185, 0, 159, 202, 60, 127, 0, 59, 0, 56, 205, 204, 76, 61, 154, 153, 25, 190, 205, 204, 76, 61, 73, 183, 73, 0, 74, 99, 25, 127, 0, 54, 0, 52, 205, 204, 76, 61, 154, 153, 153, 61, 205, 204, 76, 61, 73, 73, 73, 0, 178, 97, 237, 127, 0, 57, 0, 52, 205, 204, 76, 61, 154, 153, 25, 190, 205, 204, 76, 189, 73, 183, 183, 0, 78, 97, 237, 127, 0, 54, 0, 56, 205, 204, 76, 61, 154, 153, 153, 61, 205, 204, 76, 189, 73, 73, 183, 0, 174, 95, 13, 127, 0, 57, 0, 56 ),
+"array_index_data": PoolByteArray( 2, 0, 8, 0, 4, 0, 2, 0, 7, 0, 8, 0, 7, 0, 13, 0, 8, 0, 7, 0, 12, 0, 13, 0, 12, 0, 11, 0, 13, 0, 12, 0, 10, 0, 11, 0, 10, 0, 3, 0, 11, 0, 10, 0, 1, 0, 3, 0, 6, 0, 10, 0, 12, 0, 6, 0, 0, 0, 10, 0, 13, 0, 5, 0, 9, 0, 13, 0, 11, 0, 5, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 36,
+"material": SubResource( 1 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 14
+}
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 1, 0, 0, 1 )
+metallic = 0.07
+metallic_specular = 0.24
+roughness = 0.94
+clearcoat_enabled = true
+clearcoat = 1.0
+clearcoat_gloss = 0.5
+uv1_scale = Vector3( 8, 8, 8 )
+uv1_triplanar = true
+
+[sub_resource type="SpatialMaterial" id=4]
+
+[sub_resource type="ArrayMesh" id=5]
+surfaces/0 = {
+"aabb": AABB( -0.072, -0.225, -0.072, 0.144, 0.45, 0.14401 ),
+"array_data": PoolByteArray( 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 61, 183, 183, 73, 0, 103, 205, 51, 127, 0, 48, 0, 52, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 61, 183, 183, 73, 0, 205, 103, 51, 127, 0, 54, 0, 0, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 61, 183, 183, 73, 0, 205, 103, 51, 127, 0, 54, 0, 60, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 61, 183, 73, 73, 0, 51, 103, 205, 127, 0, 57, 0, 0, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 61, 183, 73, 73, 0, 51, 103, 205, 127, 0, 57, 0, 60, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 61, 183, 73, 73, 0, 153, 205, 205, 127, 0, 59, 0, 52, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 189, 183, 183, 183, 0, 103, 205, 205, 127, 0, 48, 0, 56, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 189, 183, 183, 183, 0, 205, 103, 205, 127, 0, 54, 0, 58, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 189, 183, 73, 183, 0, 51, 103, 51, 127, 0, 57, 0, 58, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 189, 183, 73, 183, 0, 153, 205, 51, 127, 0, 59, 0, 56, 189, 116, 147, 61, 103, 102, 102, 190, 189, 116, 147, 61, 73, 183, 73, 0, 78, 97, 19, 127, 0, 54, 0, 52, 189, 116, 147, 61, 103, 102, 102, 62, 189, 116, 147, 61, 73, 73, 73, 0, 178, 97, 237, 127, 0, 57, 0, 52, 189, 116, 147, 61, 103, 102, 102, 190, 189, 116, 147, 189, 73, 183, 183, 0, 78, 97, 237, 127, 0, 54, 0, 56, 189, 116, 147, 61, 103, 102, 102, 62, 189, 116, 147, 189, 73, 73, 183, 0, 178, 97, 19, 127, 0, 57, 0, 56 ),
+"array_index_data": PoolByteArray( 2, 0, 8, 0, 4, 0, 2, 0, 7, 0, 8, 0, 7, 0, 13, 0, 8, 0, 7, 0, 12, 0, 13, 0, 12, 0, 11, 0, 13, 0, 12, 0, 10, 0, 11, 0, 10, 0, 3, 0, 11, 0, 10, 0, 1, 0, 3, 0, 6, 0, 10, 0, 12, 0, 6, 0, 0, 0, 10, 0, 13, 0, 5, 0, 9, 0, 13, 0, 11, 0, 5, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 36,
+"material": SubResource( 4 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 14
+}
+
+[sub_resource type="SpatialMaterial" id=6]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="ArrayMesh" id=7]
+surfaces/0 = {
+"aabb": AABB( -0.072, -0.225, -0.072, 0.144, 0.45, 0.14401 ),
+"array_data": PoolByteArray( 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 61, 183, 183, 73, 0, 103, 205, 51, 127, 0, 48, 0, 52, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 61, 183, 183, 73, 0, 205, 103, 51, 127, 0, 54, 0, 0, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 61, 183, 183, 73, 0, 205, 103, 51, 127, 0, 54, 0, 60, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 61, 183, 73, 73, 0, 51, 103, 205, 127, 0, 57, 0, 0, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 61, 183, 73, 73, 0, 51, 103, 205, 127, 0, 57, 0, 60, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 61, 183, 73, 73, 0, 153, 205, 205, 127, 0, 59, 0, 52, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 189, 183, 183, 183, 0, 103, 205, 205, 127, 0, 48, 0, 56, 189, 116, 147, 189, 103, 102, 102, 190, 189, 116, 147, 189, 183, 183, 183, 0, 205, 103, 205, 127, 0, 54, 0, 58, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 189, 183, 73, 183, 0, 51, 103, 51, 127, 0, 57, 0, 58, 189, 116, 147, 189, 103, 102, 102, 62, 189, 116, 147, 189, 183, 73, 183, 0, 153, 205, 51, 127, 0, 59, 0, 56, 189, 116, 147, 61, 103, 102, 102, 190, 189, 116, 147, 61, 73, 183, 73, 0, 78, 97, 19, 127, 0, 54, 0, 52, 189, 116, 147, 61, 103, 102, 102, 62, 189, 116, 147, 61, 73, 73, 73, 0, 178, 97, 237, 127, 0, 57, 0, 52, 189, 116, 147, 61, 103, 102, 102, 190, 189, 116, 147, 189, 73, 183, 183, 0, 78, 97, 237, 127, 0, 54, 0, 56, 189, 116, 147, 61, 103, 102, 102, 62, 189, 116, 147, 189, 73, 73, 183, 0, 178, 97, 19, 127, 0, 57, 0, 56 ),
+"array_index_data": PoolByteArray( 2, 0, 8, 0, 4, 0, 2, 0, 7, 0, 8, 0, 7, 0, 13, 0, 8, 0, 7, 0, 12, 0, 13, 0, 12, 0, 11, 0, 13, 0, 12, 0, 10, 0, 11, 0, 10, 0, 3, 0, 11, 0, 10, 0, 1, 0, 3, 0, 6, 0, 10, 0, 12, 0, 6, 0, 0, 0, 10, 0, 13, 0, 5, 0, 9, 0, 13, 0, 11, 0, 5, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 36,
+"material": SubResource( 6 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 14
+}
+
+[node name="Armature002" type="Spatial"]
+
+[node name="Waist3" type="Spatial" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0737176, -1.19585, -9.84669e-05 )
+
+[node name="LowerSpine3" type="Spatial" parent="Waist3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0 )
+
+[node name="UpperSpine3" type="Spatial" parent="Waist3/LowerSpine3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0 )
+
+[node name="Chest3" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0 )
+
+[node name="Neck3" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+
+[node name="Bone0053" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/Neck3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0 )
+
+[node name="ShoulderL3" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3"]
+transform = Transform( -0.559336, 0.828941, 8.9407e-08, -2.98023e-08, -2.38419e-07, 1, 0.828941, 0.559336, 1.19209e-07, 0.22, 0.24, -1.66695e-08 )
+
+[node name="UpperArmL3" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderL3"]
+transform = Transform( 0.0279551, 0.978475, -0.204464, 0.989432, -0.0561984, -0.133662, -0.142275, -0.198566, -0.969706, 7.45058e-09, 0.12, -1.21385e-15 )
+
+[node name="LowerArmL3" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderL3/UpperArmL3"]
+transform = Transform( 0.722104, -0.05371, -0.689696, 0.386324, 0.858346, 0.337633, 0.573864, -0.510252, 0.640565, 1.49012e-08, 0.45, -5.96046e-08 )
+
+[node name="HandL3" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderL3/UpperArmL3/LowerArmL3"]
+transform = Transform( 0.824079, -0.0512846, -0.56415, 0.000334702, 0.995937, -0.0900479, 0.566476, 0.0740177, 0.820748, -4.47035e-08, 0.45, 5.96046e-08 )
+
+[node name="Cube023" type="MeshInstance" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderL3/UpperArmL3/LowerArmL3/HandL3"]
+transform = Transform( 1, 4.3657e-15, 3.55271e-15, 4.3657e-15, -1, -5.96047e-08, 3.55271e-15, 5.96047e-08, -1, 1.19209e-07, 0.0750001, 2.38419e-07 )
+layers = 2
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="Cube021" type="MeshInstance" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderL3/UpperArmL3/LowerArmL3"]
+transform = Transform( 1, 4.3657e-15, 3.55271e-15, 4.3657e-15, -1, -5.96047e-08, 3.55271e-15, 5.96047e-08, -1, -2.98023e-08, 0.225, -2.38419e-07 )
+layers = 2
+mesh = SubResource( 5 )
+material/0 = SubResource( 3 )
+
+[node name="Cube019" type="MeshInstance" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderL3/UpperArmL3"]
+transform = Transform( 1, 3.41838e-15, 3.17865e-08, 5.31301e-15, -1, -5.96047e-08, 3.17865e-08, 5.96047e-08, -1, 4.76837e-07, 0.225, -1.93715e-07 )
+layers = 2
+mesh = SubResource( 7 )
+material/0 = SubResource( 3 )
+
+[node name="ShoulderR2" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3"]
+transform = Transform( 0, -1, 0, 0, 0, 1, -1, 0, 0, -0.22, 0.24, 2.6054e-15 )
+
+[node name="UpperArmR2" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderR2"]
+transform = Transform( -0.977349, -0.209847, 0.0274237, -0.211631, 0.969109, -0.126647, -5.68107e-08, -0.129582, -0.991569, -1.65809e-15, 0.12, 5.96046e-08 )
+
+[node name="LowerArmR2" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderR2/UpperArmR2"]
+transform = Transform( -0.638089, 0.758145, -0.134385, -0.740431, -0.652071, -0.162987, -0.211196, -0.00449717, 0.977433, 3.72529e-08, 0.45, -2.36828e-16 )
+
+[node name="HandR2" type="Spatial" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderR2/UpperArmR2/LowerArmR2"]
+transform = Transform( 1, 1.11759e-08, 1.75554e-15, -1.11759e-08, 1, -3.72529e-09, -1.79717e-15, 3.72529e-09, 1, 0, 0.45, 0 )
+
+[node name="Cube022" type="MeshInstance" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderR2/UpperArmR2/LowerArmR2/HandR2"]
+transform = Transform( -1, -4.3657e-15, -3.55271e-15, 4.3657e-15, -1, -5.96047e-08, 3.55271e-15, 5.96047e-08, -1, 0, 0.0750001, -1.78814e-07 )
+layers = 2
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="Cube020" type="MeshInstance" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderR2/UpperArmR2/LowerArmR2"]
+transform = Transform( -1, -4.3657e-15, -3.55271e-15, 4.3657e-15, -1, -5.96047e-08, 3.55271e-15, 5.96047e-08, -1, 1.19209e-07, 0.225, -1.78814e-07 )
+layers = 2
+mesh = SubResource( 5 )
+material/0 = SubResource( 3 )
+
+[node name="Cube018" type="MeshInstance" parent="Waist3/LowerSpine3/UpperSpine3/Chest3/ShoulderR2/UpperArmR2"]
+transform = Transform( -1, -3.41839e-15, -3.17865e-08, 5.31301e-15, -1, -5.96047e-08, 3.17865e-08, 5.96047e-08, -1, 4.47035e-07, 0.225, -1.78814e-07 )
+layers = 2
+mesh = SubResource( 7 )
+material/0 = SubResource( 3 )
+
+[node name="UpperLegL3" type="Spatial" parent="Waist3"]
+transform = Transform( 1, 0, -8.74228e-08, 0, -1, 0, -8.74228e-08, 0, -1, 0.15, 0.09, 0 )
+
+[node name="LowerLegL3" type="Spatial" parent="Waist3/UpperLegL3"]
+transform = Transform( 1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, 1, 0, 0.72, 0 )
+
+[node name="FootL3" type="Spatial" parent="Waist3/UpperLegL3/LowerLegL3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 0 )
+
+[node name="UpperLegR2" type="Spatial" parent="Waist3"]
+transform = Transform( 1, 0, -8.74228e-08, 0, -1, 0, -8.74228e-08, 0, -1, -0.15, 0.09, 0 )
+
+[node name="LowerLegR2" type="Spatial" parent="Waist3/UpperLegR2"]
+transform = Transform( 1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, 1, 0, 0.72, 0 )
+
+[node name="FootR2" type="Spatial" parent="Waist3/UpperLegR2/LowerLegR2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 0 )

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/514228__superphat__sniper-rifle.wav-a0aa3ce5c40b191fd56b7feaa64f93c1.sample"
+
+[deps]
+
+source_file="res://addons/514228__superphat__sniper-rifle.wav"
+dest_files=[ "res://.import/514228__superphat__sniper-rifle.wav-a0aa3ce5c40b191fd56b7feaa64f93c1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

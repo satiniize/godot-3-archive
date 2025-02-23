@@ -1,0 +1,178 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://rooms/Door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://rooms/wall.tres" type="Material" id=2]
+[ext_resource path="res://enemy/hitscan/EnemyHitscan.tscn" type="PackedScene" id=3]
+[ext_resource path="res://rooms/room_1.gd" type="Script" id=4]
+[ext_resource path="res://enemy/melee/EnemyMelee.tscn" type="PackedScene" id=5]
+[ext_resource path="res://rooms/floor.tres" type="Material" id=6]
+[ext_resource path="res://unused_files/fireball.png" type="Texture" id=7]
+[ext_resource path="res://enemy/projectile/EnemyProjectile.tscn" type="PackedScene" id=8]
+
+[sub_resource type="NavigationMesh" id=1]
+vertices = PoolVector3Array( -15.4, 9.4, 7.7, -15.4, 9.4, 15.4, -7.7, 9.4, 15.4, 7.7, 9.4, 15.4, 15.4, 9.4, 15.4, 15.4, 9.4, 7.7, 15.4, 9.4, -7.7, 15.4, 9.4, -15.4, 7.7, 9.4, -15.4, -7.7, 9.4, -15.4, -15.4, 9.4, -15.4, -15.4, 9.4, -7.7, -15.4, 9.4, 0, -15.4, 9.4, 7.7, -7.7, 9.4, 15.4, 0, 9.4, 15.4, 7.7, 9.4, 15.4, 15.4, 9.4, 7.7, 15.4, 9.4, 0, 15.4, 9.4, -7.7, 7.7, 9.4, -15.4, 0, 9.4, -15.4, 0, 9.4, -15.4, -7.7, 9.4, -15.4, -15.4, 9.4, -7.7, -15.4, 9.4, 0, 15.4, 9.4, 0, 0, 9.4, -15.4, -15.4, 9.4, 0, -7.7, 9.4, 15.4, 0, 9.4, 15.4, 15.4, 9.4, 7.7, -0.3, 1.4, -4.1, -0.3, 1.4, -3.5, 0.4, 1.4, -3.5, 0.4, 1.4, -4.1, 1.6, 1.4, -4.6, 1.6, 1.4, -9.3, 0.9, 1.4, -9.3, -0.599999, 1.4, -4.5, -0.3, 1.4, -4.1, 0.4, 1.4, -4.1, 0.700001, 1.4, -4.5, 0.4, 1.4, -15.4, -0.3, 1.4, -15.4, -0.3, 1.4, -9.9, 0.4, 1.4, -9.8, -1.5, 1.4, -4.6, -0.599999, 1.4, -4.5, 0.700001, 1.4, -4.5, 1.6, 1.4, -4.6, 0.9, 1.4, -9.3, -0.9, 1.4, -9.3, -0.3, 1.4, -9.9, -0.9, 1.4, -9.3, 0.9, 1.4, -9.3, 0.4, 1.4, -9.8, -0.9, 1.4, -9.3, -1.6, 1.4, -9.3, -1.5, 1.4, -4.6, -10.1, 1.4, -10.6, -9.5, 1.4, -10.6, -9.6, 1.4, -15.3, -15.3, 1.4, -9.6, -10.6, 1.4, -9.5, -10.5, 1.4, -10.3, -10.5, 1.4, -10.3, -10.1, 1.4, -10.6, -9.6, 1.4, -15.3, -15.3, 1.4, -15.3, -15.3, 1.4, -9.6, -9.5, 1.4, -10.6, -1.6, 1.4, -10.6, -1.6, 1.4, -15.3, -9.6, 1.4, -15.3, 9.6, 1.4, -10.6, 9.7, 1.4, -15.3, 1.7, 1.4, -15.3, 1.7, 1.4, -10.6, 9.7, 1.4, -15.3, 9.6, 1.4, -10.6, 10.2, 1.4, -10.6, 10.6, 1.4, -10.3, 10.7, 1.4, -9.3, 15.3, 1.4, -9.3, 9.7, 1.4, -15.3, 10.2, 1.4, -10.6, 10.6, 1.4, -10.3, 15.3, 1.4, -9.3, 15.3, 1.4, -15.3, -10.6, 1.4, -9.5, -15.3, 1.4, -9.6, -15.3, 1.4, -1.6, -10.6, 1.4, -1.6, -4.1, 1.4, -4.6, -3.5, 1.4, -4.6, -3.6, 1.4, -9.3, -9.3, 1.4, -3.6, -4.6, 1.4, -3.5, -4.5, 1.4, -4.3, -4.5, 1.4, -4.3, -4.1, 1.4, -4.6, -3.6, 1.4, -9.3, -9.3, 1.4, -9.3, -9.3, 1.4, -3.6, -3.5, 1.4, -4.6, -1.5, 1.4, -4.6, -1.6, 1.4, -9.3, -3.6, 1.4, -9.3, 3.6, 1.4, -4.6, 3.7, 1.4, -9.3, 1.6, 1.4, -9.3, 1.6, 1.4, -4.6, 4.7, 1.4, -4.1, 4.7, 1.4, -3.5, 9.4, 1.4, -3.6, 3.7, 1.4, -9.3, 3.6, 1.4, -4.6, 4.4, 1.4, -4.5, 4.4, 1.4, -4.5, 4.7, 1.4, -4.1, 9.4, 1.4, -3.6, 9.4, 1.4, -9.3, 3.7, 1.4, -9.3, 15.3, 1.4, -9.3, 10.7, 1.4, -9.3, 10.7, 1.4, -1.6, 15.3, 1.4, -1.6, -9.3, 1.4, -1.6, -4.6, 1.4, -1.5, -4.6, 1.4, -3.5, -9.3, 1.4, -3.6, 4.7, 1.4, -3.5, 4.7, 1.4, -1.5, 9.4, 1.4, -1.5, 9.4, 1.4, -3.6, -2.9, 1.4, -0.3, -3.5, 1.4, -0.3, -3.4, 1.4, 0.4, -2.8, 1.4, 0.4, -0.7, 1.4, -2.4, -2.3, 1.4, -2.3, -2.4, 1.4, -0.7, -2.4, 1.4, 0.700001, -0.3, 1.4, 2.9, -0.3, 1.4, 3.5, 0.4, 1.4, 3.5, 0.4, 1.4, 2.9, -2.4, 1.4, 0.700001, -0.599999, 1.4, 2.5, 0.700001, 1.4, 2.5, 2.5, 1.4, 0.700001, 0.9, 1.4, -2.3, -0.7, 1.4, -2.4, 0.4, 1.4, -3.5, -0.3, 1.4, -3.5, -0.3, 1.4, -2.9, 0.5, 1.4, -2.6, 0.700001, 1.4, 2.5, 2.4, 1.4, 2.4, 2.5, 1.4, 0.700001, 2.9, 1.4, 0.4, 3.6, 1.4, 0.4, 3.6, 1.4, -0.3, 2.9, 1.4, -0.3, 2.5, 1.4, -0.599999, 2.4, 1.4, -2.3, 0.9, 1.4, -2.3, 2.5, 1.4, 0.700001, -0.599999, 1.4, 2.5, -0.3, 1.4, 2.9, 0.4, 1.4, 2.9, 0.700001, 1.4, 2.5, 2.5, 1.4, 0.700001, 2.9, 1.4, 0.4, 2.9, 1.4, -0.3, 2.5, 1.4, -0.599999, -2.9, 1.4, -0.3, -2.8, 1.4, 0.4, -2.4, 1.4, 0.700001, -2.4, 1.4, -0.7, 0.5, 1.4, -2.6, -0.3, 1.4, -2.9, -0.7, 1.4, -2.4, 0.9, 1.4, -2.3, -2.4, 1.4, 0.700001, -2.3, 1.4, 2.4, -0.599999, 1.4, 2.5, -3.4, 5.4, -3.4, -3.4, 5.4, 3.5, 3.5, 5.4, 3.5, 3.5, 5.4, -3.4, -4.1, 1.4, 0.4, -3.4, 1.4, 0.4, -3.5, 1.4, -0.3, -4.1, 1.4, -0.3, -9.3, 1.4, 0.9, -9.3, 1.4, 1.6, -4.6, 1.4, 1.6, -4.5, 1.4, 0.700001, -4.1, 1.4, 0.4, -4.1, 1.4, -0.3, -4.5, 1.4, -0.599999, -9.9, 1.4, -0.3, -15.4, 1.4, -0.3, -15.4, 1.4, 0.4, -9.8, 1.4, 0.4, -4.6, 1.4, 1.6, -4.5, 1.4, 0.700001, -4.5, 1.4, -0.599999, -4.6, 1.4, -1.5, -9.3, 1.4, -0.9, -9.3, 1.4, 0.9, -9.3, 1.4, 0.9, -9.3, 1.4, -0.9, -9.9, 1.4, -0.3, -9.8, 1.4, 0.4, -4.6, 1.4, -1.5, -9.3, 1.4, -1.6, -9.3, 1.4, -0.9, 4.2, 1.4, -0.3, 3.6, 1.4, -0.3, 3.6, 1.4, 0.4, 4.2, 1.4, 0.4, 9.4, 1.4, -0.8, 9.4, 1.4, -1.5, 4.7, 1.4, -1.5, 4.6, 1.4, -0.599999, 4.2, 1.4, -0.3, 4.2, 1.4, 0.4, 4.6, 1.4, 0.700001, 9.9, 1.4, 0.4, 15.4, 1.4, 0.4, 15.4, 1.4, -0.3, 9.9, 1.4, -0.3, 4.7, 1.4, -1.5, 4.6, 1.4, -0.599999, 4.6, 1.4, 0.700001, 4.7, 1.4, 1.6, 9.4, 1.4, 0.9, 9.4, 1.4, -0.8, 9.9, 1.4, -0.3, 9.4, 1.4, -0.8, 9.4, 1.4, 0.9, 9.9, 1.4, 0.4, 4.7, 1.4, 1.6, 9.4, 1.4, 1.6, 9.4, 1.4, 0.9, -4.6, 1.4, 3.6, -4.6, 1.4, 1.6, -9.3, 1.4, 1.6, -9.3, 1.4, 3.7, 4.7, 1.4, 3.6, 9.4, 1.4, 3.7, 9.4, 1.4, 1.6, 4.7, 1.4, 1.6, -10.6, 1.4, 9.6, -10.6, 1.4, 1.7, -15.3, 1.4, 1.7, -15.3, 1.4, 9.7, 10.7, 1.4, 9.3, 15.3, 1.4, 9.3, 15.3, 1.4, 1.7, 10.7, 1.4, 1.7, 0.4, 1.4, 3.5, -0.3, 1.4, 3.5, -0.3, 1.4, 4.2, 0.5, 1.4, 4.4, 0.4, 1.4, 9.9, -0.8, 1.4, 9.4, -0.3, 1.4, 9.9, 0.5, 1.4, 4.4, -0.3, 1.4, 4.2, -0.599999, 1.4, 4.6, 0.9, 1.4, 4.7, -0.3, 1.4, 9.9, -0.3, 1.4, 15.4, 0.4, 1.4, 15.4, 0.4, 1.4, 9.9, 0.9, 1.4, 9.4, 0.9, 1.4, 4.7, -0.599999, 1.4, 4.6, -1.5, 1.4, 4.7, -0.8, 1.4, 9.4, 0.4, 1.4, 9.9, -1.5, 1.4, 4.7, -1.5, 1.4, 9.4, -0.8, 1.4, 9.4, 0.9, 1.4, 9.4, 1.6, 1.4, 9.4, 1.6, 1.4, 4.7, 0.9, 1.4, 4.7, -3.6, 1.4, 9.4, -3.5, 1.4, 4.7, -4.1, 1.4, 4.7, -4.5, 1.4, 4.4, -4.6, 1.4, 3.6, -9.3, 1.4, 3.7, -3.6, 1.4, 9.4, -4.1, 1.4, 4.7, -4.5, 1.4, 4.4, -9.3, 1.4, 3.7, -9.3, 1.4, 9.4, 9.4, 1.4, 3.7, 4.7, 1.4, 3.6, 4.7, 1.4, 4.2, 4.4, 1.4, 4.6, 3.6, 1.4, 4.7, 3.7, 1.4, 9.4, 9.4, 1.4, 3.7, 4.7, 1.4, 4.2, 4.4, 1.4, 4.6, 3.7, 1.4, 9.4, 9.4, 1.4, 9.4, -1.5, 1.4, 9.4, -1.5, 1.4, 4.7, -3.5, 1.4, 4.7, -3.6, 1.4, 9.4, 1.6, 1.4, 9.4, 3.7, 1.4, 9.4, 3.6, 1.4, 4.7, 1.6, 1.4, 4.7, 15.3, 1.4, 9.3, 10.7, 1.4, 9.3, 10.7, 1.4, 10.1, 10.3, 1.4, 10.6, 9.3, 1.4, 10.7, 9.3, 1.4, 15.3, 15.3, 1.4, 9.3, 10.7, 1.4, 10.1, 10.3, 1.4, 10.6, 9.3, 1.4, 15.3, 15.3, 1.4, 15.3, -10.6, 1.4, 10.2, -10.6, 1.4, 9.6, -15.3, 1.4, 9.7, -9.3, 1.4, 15.3, -9.3, 1.4, 10.7, -10.3, 1.4, 10.6, -10.3, 1.4, 10.6, -10.6, 1.4, 10.2, -15.3, 1.4, 9.7, -15.3, 1.4, 15.3, -9.3, 1.4, 15.3, -9.3, 1.4, 15.3, -1.6, 1.4, 15.3, -1.6, 1.4, 10.7, -9.3, 1.4, 10.7, 9.3, 1.4, 15.3, 9.3, 1.4, 10.7, 1.7, 1.4, 10.7, 1.7, 1.4, 15.3 )
+polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 5, 4, 3 ), PoolIntArray( 6, 8, 7 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 14, 13, 12 ), PoolIntArray( 17, 16, 15 ), PoolIntArray( 19, 18, 20 ), PoolIntArray( 20, 18, 21 ), PoolIntArray( 23, 22, 24 ), PoolIntArray( 24, 22, 25 ), PoolIntArray( 31, 30, 26 ), PoolIntArray( 26, 30, 29 ), PoolIntArray( 26, 29, 28 ), PoolIntArray( 26, 28, 27 ), PoolIntArray( 35, 34, 32 ), PoolIntArray( 32, 34, 33 ), PoolIntArray( 38, 37, 36 ), PoolIntArray( 40, 39, 41 ), PoolIntArray( 41, 39, 42 ), PoolIntArray( 44, 43, 45 ), PoolIntArray( 45, 43, 46 ), PoolIntArray( 49, 48, 50 ), PoolIntArray( 50, 48, 47 ), PoolIntArray( 50, 47, 51 ), PoolIntArray( 51, 47, 52 ), PoolIntArray( 56, 55, 53 ), PoolIntArray( 53, 55, 54 ), PoolIntArray( 59, 58, 57 ), PoolIntArray( 60, 62, 61 ), PoolIntArray( 65, 64, 63 ), PoolIntArray( 67, 66, 68 ), PoolIntArray( 68, 66, 69 ), PoolIntArray( 69, 66, 70 ), PoolIntArray( 72, 71, 73 ), PoolIntArray( 73, 71, 74 ), PoolIntArray( 78, 77, 75 ), PoolIntArray( 75, 77, 76 ), PoolIntArray( 81, 80, 79 ), PoolIntArray( 84, 83, 82 ), PoolIntArray( 86, 85, 87 ), PoolIntArray( 87, 85, 89 ), PoolIntArray( 87, 89, 88 ), PoolIntArray( 93, 92, 90 ), PoolIntArray( 90, 92, 91 ), PoolIntArray( 94, 96, 95 ), PoolIntArray( 99, 98, 97 ), PoolIntArray( 101, 100, 102 ), PoolIntArray( 102, 100, 103 ), PoolIntArray( 103, 100, 104 ), PoolIntArray( 108, 107, 105 ), PoolIntArray( 105, 107, 106 ), PoolIntArray( 112, 111, 109 ), PoolIntArray( 109, 111, 110 ), PoolIntArray( 115, 114, 113 ), PoolIntArray( 118, 117, 116 ), PoolIntArray( 120, 119, 121 ), PoolIntArray( 121, 119, 122 ), PoolIntArray( 122, 119, 123 ), PoolIntArray( 127, 126, 124 ), PoolIntArray( 124, 126, 125 ), PoolIntArray( 131, 130, 128 ), PoolIntArray( 128, 130, 129 ), PoolIntArray( 133, 132, 134 ), PoolIntArray( 134, 132, 135 ), PoolIntArray( 139, 138, 136 ), PoolIntArray( 136, 138, 137 ), PoolIntArray( 141, 140, 142 ), PoolIntArray( 142, 140, 143 ), PoolIntArray( 147, 146, 144 ), PoolIntArray( 144, 146, 145 ), PoolIntArray( 150, 149, 151 ), PoolIntArray( 151, 149, 148 ), PoolIntArray( 151, 148, 152 ), PoolIntArray( 152, 148, 153 ), PoolIntArray( 155, 154, 156 ), PoolIntArray( 156, 154, 157 ), PoolIntArray( 159, 158, 160 ), PoolIntArray( 164, 163, 161 ), PoolIntArray( 161, 163, 162 ), PoolIntArray( 166, 165, 167 ), PoolIntArray( 167, 165, 168 ), PoolIntArray( 170, 169, 171 ), PoolIntArray( 171, 169, 172 ), PoolIntArray( 175, 174, 176 ), PoolIntArray( 176, 174, 173 ), PoolIntArray( 178, 177, 179 ), PoolIntArray( 179, 177, 180 ), PoolIntArray( 181, 184, 182 ), PoolIntArray( 182, 184, 183 ), PoolIntArray( 187, 186, 185 ), PoolIntArray( 191, 190, 188 ), PoolIntArray( 188, 190, 189 ), PoolIntArray( 195, 194, 192 ), PoolIntArray( 192, 194, 193 ), PoolIntArray( 198, 197, 196 ), PoolIntArray( 201, 200, 202 ), PoolIntArray( 202, 200, 199 ), PoolIntArray( 204, 203, 205 ), PoolIntArray( 205, 203, 206 ), PoolIntArray( 208, 207, 209 ), PoolIntArray( 209, 207, 210 ), PoolIntArray( 210, 207, 212 ), PoolIntArray( 210, 212, 211 ), PoolIntArray( 216, 215, 213 ), PoolIntArray( 213, 215, 214 ), PoolIntArray( 217, 219, 218 ), PoolIntArray( 223, 222, 220 ), PoolIntArray( 220, 222, 221 ), PoolIntArray( 226, 225, 224 ), PoolIntArray( 228, 227, 229 ), PoolIntArray( 229, 227, 230 ), PoolIntArray( 234, 233, 231 ), PoolIntArray( 231, 233, 232 ), PoolIntArray( 237, 236, 238 ), PoolIntArray( 238, 236, 235 ), PoolIntArray( 238, 235, 239 ), PoolIntArray( 239, 235, 240 ), PoolIntArray( 244, 243, 241 ), PoolIntArray( 241, 243, 242 ), PoolIntArray( 247, 246, 245 ), PoolIntArray( 249, 248, 250 ), PoolIntArray( 250, 248, 251 ), PoolIntArray( 255, 254, 252 ), PoolIntArray( 252, 254, 253 ), PoolIntArray( 257, 256, 258 ), PoolIntArray( 258, 256, 259 ), PoolIntArray( 263, 262, 260 ), PoolIntArray( 260, 262, 261 ), PoolIntArray( 265, 264, 266 ), PoolIntArray( 266, 264, 267 ), PoolIntArray( 268, 270, 269 ), PoolIntArray( 272, 271, 273 ), PoolIntArray( 273, 271, 274 ), PoolIntArray( 278, 277, 275 ), PoolIntArray( 275, 277, 276 ), PoolIntArray( 284, 283, 279 ), PoolIntArray( 279, 283, 280 ), PoolIntArray( 280, 283, 281 ), PoolIntArray( 281, 283, 282 ), PoolIntArray( 287, 286, 285 ), PoolIntArray( 291, 290, 288 ), PoolIntArray( 288, 290, 289 ), PoolIntArray( 292, 294, 293 ), PoolIntArray( 297, 296, 295 ), PoolIntArray( 299, 298, 300 ), PoolIntArray( 300, 298, 302 ), PoolIntArray( 300, 302, 301 ), PoolIntArray( 305, 304, 303 ), PoolIntArray( 308, 307, 306 ), PoolIntArray( 310, 309, 311 ), PoolIntArray( 311, 309, 313 ), PoolIntArray( 311, 313, 312 ), PoolIntArray( 315, 314, 316 ), PoolIntArray( 316, 314, 317 ), PoolIntArray( 321, 320, 318 ), PoolIntArray( 318, 320, 319 ), PoolIntArray( 324, 323, 322 ), PoolIntArray( 327, 326, 325 ), PoolIntArray( 329, 328, 330 ), PoolIntArray( 330, 328, 332 ), PoolIntArray( 330, 332, 331 ), PoolIntArray( 335, 334, 333 ), PoolIntArray( 338, 337, 336 ), PoolIntArray( 340, 339, 341 ), PoolIntArray( 341, 339, 342 ), PoolIntArray( 342, 339, 343 ), PoolIntArray( 347, 346, 344 ), PoolIntArray( 344, 346, 345 ), PoolIntArray( 351, 350, 348 ), PoolIntArray( 348, 350, 349 ) ]
+cell/size = 0.1
+agent/height = 1.7
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 16, 1, 16 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 10, 5, 10 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+params_blend_mode = 1
+params_cull_mode = 2
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
+
+[node name="Room1" type="Spatial"]
+script = ExtResource( 4 )
+doors = [ NodePath("Navigation/Level/Door"), NodePath("Navigation/Level/Door4"), NodePath("Navigation/Level/Door2"), NodePath("Navigation/Level/Door3") ]
+
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="Level" type="Spatial" parent="Navigation"]
+
+[node name="Door" parent="Navigation/Level" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -10.25 )
+
+[node name="Door4" parent="Navigation/Level" instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 10.25 )
+
+[node name="Door2" parent="Navigation/Level" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.25, 1, 0 )
+
+[node name="Door3" parent="Navigation/Level" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.25, 1, 0 )
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation/Level"]
+navmesh = SubResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/Level/NavigationMeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13 )
+depth = 6.0
+polygon = PoolVector2Array( -16, 1, -1, 1, -1, 4, 1, 4, 1, 1, 16, 1, 16, 9, -16, 9 )
+
+[node name="CollisionPolygon2" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13 )
+depth = 6.0
+polygon = PoolVector2Array( -16, 1, -1, 1, -1, 4, 1, 4, 1, 1, 16, 1, 16, 9, -16, 9 )
+
+[node name="CollisionPolygon3" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, 0 )
+depth = 6.0
+polygon = PoolVector2Array( -16, 1, -1, 1, -1, 4, 1, 4, 1, 1, 16, 1, 16, 9, -16, 9 )
+
+[node name="CollisionPolygon4" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 0, 0 )
+depth = 6.0
+polygon = PoolVector2Array( -16, 1, -1, 1, -1, 4, 1, 4, 1, 1, 16, 1, 16, 9, -16, 9 )
+
+[node name="CollisionPolygon5" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.5 )
+polygon = PoolVector2Array( -4, 0, -4, 4, 4, 4, 4, 0, 1, 0, 1, 2, 0.7, 2.7, 0, 3, -0.7, 2.7, -1, 2, -1, 0 )
+
+[node name="CollisionPolygon6" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3.5 )
+polygon = PoolVector2Array( -4, 0, -4, 4, 4, 4, 4, 0, 1, 0, 1, 2, 0.7, 2.7, 0, 3, -0.7, 2.7, -1, 2, -1, 0 )
+
+[node name="CollisionPolygon7" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 1, 2.98023e-08 )
+polygon = PoolVector2Array( -4, 0, -4, 4, 4, 4, 4, 0, 1, 0, 1, 2, 0.7, 2.7, 0, 3, -0.7, 2.7, -1, 2, -1, 0 )
+
+[node name="CollisionPolygon8" type="CollisionPolygon" parent="Navigation/Level/NavigationMeshInstance/StaticBody"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.5, 1, 2.98023e-08 )
+polygon = PoolVector2Array( -4, 0, -4, 4, 4, 4, 4, 0, 1, 0, 1, 2, 0.7, 2.7, 0, 3, -0.7, 2.7, -1, 2, -1, 0 )
+
+[node name="CSGBox2" type="CSGBox" parent="Navigation/Level/NavigationMeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0 )
+material_override = ExtResource( 2 )
+width = 32.0
+height = 9.0
+depth = 32.0
+
+[node name="CSGBox3" type="CSGBox" parent="Navigation/Level/NavigationMeshInstance/CSGBox2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+operation = 2
+width = 20.0
+height = 9.0
+depth = 20.0
+
+[node name="CSGBox" type="CSGBox" parent="Navigation/Level/NavigationMeshInstance/CSGBox2/CSGBox3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+height = 4.0
+depth = 33.0
+
+[node name="CSGBox2" type="CSGBox" parent="Navigation/Level/NavigationMeshInstance/CSGBox2/CSGBox3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+width = 33.0
+height = 4.0
+
+[node name="CSGBox" type="CSGBox" parent="Navigation/Level/NavigationMeshInstance"]
+material_override = ExtResource( 6 )
+width = 32.0
+depth = 32.0
+
+[node name="CSGBox3" type="CSGBox" parent="Navigation/Level/NavigationMeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+material_override = ExtResource( 2 )
+width = 8.0
+height = 4.0
+depth = 8.0
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Navigation/Level/NavigationMeshInstance/CSGBox3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 7 )
+operation = 2
+polygon = PoolVector2Array( -1, -1, 1, -1, 1, 2, 0.7, 2.7, 0, 3, -0.7, 2.7, -1, 2 )
+depth = 15.633
+
+[node name="CSGPolygon2" type="CSGPolygon" parent="Navigation/Level/NavigationMeshInstance/CSGBox3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, -2, 0 )
+operation = 2
+polygon = PoolVector2Array( -1, -1, 1, -1, 1, 2, 0.7, 2.7, 0, 3, -0.7, 2.7, -1, 2 )
+depth = 15.633
+
+[node name="CSGBox" type="CSGBox" parent="Navigation/Level/NavigationMeshInstance/CSGBox3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1, 0 )
+operation = 2
+width = 6.0
+height = 4.0
+depth = 6.0
+
+[node name="Enemies" type="Spatial" parent="Navigation/Level"]
+
+[node name="EnemyHitscan" parent="Navigation/Level/Enemies" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+nav_node_path = NodePath("../../..")
+
+[node name="EnemyMelee" parent="Navigation/Level/Enemies" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
+nav_node_path = NodePath("../../..")
+
+[node name="EnemyProjectile" parent="Navigation/Level/Enemies" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0 )
+nav_node_path = NodePath("../../..")
+
+[node name="PlayerTrigger" type="Area" parent="Navigation/Level"]
+collision_layer = 2147483650
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/Level/PlayerTrigger"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+[connection signal="body_entered" from="Navigation/Level/PlayerTrigger" to="." method="_on_PlayerTrigger_body_entered"]

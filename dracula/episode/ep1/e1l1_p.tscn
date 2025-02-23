@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://default_texture.png" type="Texture" id=1]
+[ext_resource path="res://entity/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/hud/hud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapon_pickup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://item/weapons/shotgun.tres" type="Resource" id=5]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+uv1_triplanar = true
+
+[node name="e1l1_p" type="Spatial"]
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+player_path = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2 )
+
+[node name="Item" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 3, 0 )
+weapon = ExtResource( 5 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+material_override = SubResource( 1 )
+use_collision = true

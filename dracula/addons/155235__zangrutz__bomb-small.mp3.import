@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/155235__zangrutz__bomb-small.mp3-8b3a8f75feaa7a04c9a84a872e809205.mp3str"
+
+[deps]
+
+source_file="res://addons/155235__zangrutz__bomb-small.mp3"
+dest_files=[ "res://.import/155235__zangrutz__bomb-small.mp3-8b3a8f75feaa7a04c9a84a872e809205.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

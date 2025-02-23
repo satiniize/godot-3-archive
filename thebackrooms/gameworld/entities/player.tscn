@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://gameworld/entities/player.gd" type="Script" id=1]
+
+[sub_resource type="CylinderShape" id=1]
+height = 0.8
+radius = 0.25
+
+[sub_resource type="CapsuleMesh" id=2]
+radius = 0.25
+mid_height = 1.5
+
+[node name="Player" type="KinematicBody"]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource( 1 )
+weapon_primary_file_path = "res://weapon_primary_data.json"
+weapon_secondary_file_path = "res://weapon_secondary_data.json"
+weapon_data_file_path = "res://weapon_data.json"
+max_speed_crouch = 1.5
+max_speed_walk = 2.5
+max_speed_run = 4.0
+stop_speed_walk = 15.0
+
+[node name="CollisionShapeLower" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShapeUpper" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0 )
+shape = SubResource( 1 )
+
+[node name="CamGroup" type="Spatial" parent="CollisionShapeUpper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+
+[node name="Camera" type="Camera" parent="CollisionShapeUpper/CamGroup"]
+cull_mask = 3
+current = true
+size = 0.1
+frustum_offset = Vector2( 0.02, 0.02 )
+near = 0.01
+
+[node name="RayCast" type="RayCast" parent="CollisionShapeUpper/CamGroup"]
+enabled = true
+cast_to = Vector3( 0, 0, -1.6 )
+collision_mask = 9
+
+[node name="SpotLight" type="SpotLight" parent="CollisionShapeUpper/CamGroup"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -0.5 )
+visible = false
+light_color = Color( 0.752941, 0.752941, 1, 1 )
+light_energy = 2.0
+shadow_enabled = true
+spot_range = 16.0
+spot_angle = 15.0
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="CanStand" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+enabled = true
+cast_to = Vector3( 0, 0.9, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+visible = false
+mesh = SubResource( 2 )
+
+[node name="FlyWindow" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+
+[node name="WeaponCooldownTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.1
+one_shot = true
+
+[node name="WallClimbTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Floor" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+cast_to = Vector3( 0, -0.55, 0 )
+
+[connection signal="timeout" from="WallClimbTimer" to="." method="_on_WallClimbTimer_timeout"]

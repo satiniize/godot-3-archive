@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://player/weaponBase.gd" type="Script" id=1]
+[ext_resource path="res://player/recoilDebug.gd" type="Script" id=2]
+[ext_resource path="res://player/bulletHole.png" type="Texture" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, -240, 0, 0, 0, 0, -88, -264, 0, 0, 0, 0, 80, -288, 0, 0, 0, 0, -24, -288 )
+}
+
+[node name="exampleGun" type="Spatial"]
+script = ExtResource( 1 )
+weapon_rps = 10.0
+damage = 1.0
+reload_cooldown = 2.43
+magazine_size = 30
+path_to_recoilPattern = NodePath("recoilPattern")
+path_to_recoilPatternFollow = NodePath("recoilPattern/recoilPatternFollow")
+
+[node name="recoilDebug" type="Node2D" parent="."]
+visible = false
+position = Vector2( 784, 464 )
+script = ExtResource( 2 )
+magazineSize = 30
+bulletCount = 3
+RPS = 10.0
+
+[node name="debugSprite" type="Sprite" parent="recoilDebug"]
+position = Vector2( 21.6056, -64.8168 )
+texture = ExtResource( 3 )
+
+[node name="recoilPattern" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="recoilPatternFollow" type="PathFollow2D" parent="recoilPattern"]
+position = Vector2( 21.6056, -64.8168 )
+rotation = -1.24905
+offset = 68.3851
+
+[node name="RecoilTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.5
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.43
+one_shot = true

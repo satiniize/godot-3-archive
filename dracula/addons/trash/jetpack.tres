@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://addons/trash/jetpack.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = ""
+clip_ammo = 0
+reserve_ammo = 0
+world_recoil = 24.0
+aim_recoil = 0.0
+bullet_count = 1
+spread = 0.0
+screen_shake = 0.0
+phase_speed = 0.0
+draw_speed = 0.0
+sheathe_speed = 0.0
