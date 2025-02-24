@@ -1,0 +1,48 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+uniform vec4 base_color : hint_color;
+uniform vec4 shadow_color : hint_color;
+uniform vec4 highlight_color : hint_color;
+uniform vec3 light_source;
+uniform float shadow_multiplier;
+uniform float shadow_brightness;
+uniform float light_scaler;
+uniform bool color_banding;
+uniform float specular_strength;
+uniform float strength;
+
+void fragment() {
+	float dot_product = dot(NORMAL, light_source * light_scaler);
+
+	dot_product *= shadow_multiplier;
+	dot_product += shadow_brightness;
+	dot_product = clamp(dot_product, 0.0, 1.0);
+	if (color_banding){
+		dot_product = round(dot_product * strength) / strength;
+	}
+	vec3 shadow = 
+	(base_color.xyz * (dot_product) - base_color.xyz * pow(dot_product, specular_strength));
+//	+ shadow_color.xyz * (1.0 - dot_product)
+//	+ specular_color.xyz * pow(dot_product, specular_strength);
+//	vec3 shadow = 
+//	(base_color.xyz * dot_product - base_color.xyz * pow(dot_product, specular_strength))
+//	+ shadow_color.xyz * (1.0 - dot_product)
+//	+ specular_color.xyz * pow(dot_product, specular_strength);
+	ALBEDO = shadow;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/base_color = Color( 1, 0, 0, 1 )
+shader_param/shadow_color = Color( 0.72549, 0.533333, 1, 1 )
+shader_param/highlight_color = null
+shader_param/light_source = Vector3( 1, 1, 1 )
+shader_param/shadow_multiplier = 0.537
+shader_param/shadow_brightness = 0.301
+shader_param/light_scaler = 0.852
+shader_param/color_banding = true
+shader_param/specular_strength = 7.564
+shader_param/strength = 2.0

@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://world_materials/wood/wood.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode diffuse_toon, specular_toon;
+uniform vec4 color: hint_color;
+uniform sampler2D newtex: hint_albedo;
+
+void fragment(){
+	vec4 texread = texture(newtex, UV * 1.0);
+	ALBEDO = texread.xyz * color.xyz;
+	ROUGHNESS = 1.0;
+	METALLIC = 0.0;
+	SPECULAR = 0.0;
+}
+
+void light() {
+    DIFFUSE_LIGHT += clamp(round(dot(NORMAL, LIGHT) * 2.0), 0.0, 2.0) / 2.0 * ATTENUATION * ALBEDO;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/newtex = ExtResource( 1 )

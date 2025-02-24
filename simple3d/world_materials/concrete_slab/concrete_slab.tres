@@ -1,0 +1,10 @@
+[gd_resource type="SpatialMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://world_materials/concrete_slab/textures/concrete.png" type="Texture" id=1]
+
+[resource]
+flags_unshaded = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 0.8, 0.88, -0.8 )
+uv1_triplanar = true

@@ -1,0 +1,46 @@
+[gd_resource type="SpatialMaterial" load_steps=3 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform float shadow_size;
+uniform float highlight_size;
+uniform vec4 base_color : hint_color;
+uniform sampler2D base_texture;
+uniform vec4 shadow_color : hint_color;
+uniform sampler2D shadow_texture;
+uniform vec4 highlight_color : hint_color;
+uniform sampler2D highlight_texture;
+
+void fragment(){
+	vec4 read_screen = texture(SCREEN_TEXTURE, SCREEN_UV, 0.0);
+	float shadow_mask;
+	float highlight_mask;
+	shadow_mask = clamp(1.0 - round(length(read_screen) * shadow_size), 0.0, 1.0);
+	highlight_mask = clamp(1.0 - round(1.0 - length(read_screen) * highlight_size), 0.0, 1.0);
+//	shadow_mask = clamp(1.0 - (length(read_screen) * shadow_size), 0.0, 1.0);
+//	highlight_mask = clamp(1.0 - (1.0 - length(read_screen) * highlight_size), 0.0, 1.0);
+	float base_mask = 1.0 - highlight_mask - shadow_mask;
+	vec4 read_base_tex = textureLod(base_texture, UV, 0.0);
+	vec4 read_shadow_tex = textureLod(shadow_texture, UV, 0.0);
+	vec4 read_highlight_tex = textureLod(highlight_texture, UV, 0.0);	
+	vec4 base = base_color * base_mask * read_base_tex;
+	vec4 shadow = shadow_color * shadow_mask * read_shadow_tex;
+	vec4 highlight = highlight_color * highlight_mask * read_highlight_tex;
+	vec4 total = base + shadow + highlight;
+	ALBEDO = total.xyz;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/shadow_size = 0.408
+shader_param/highlight_size = 0.133
+shader_param/base_color = Color( 0.0470588, 0.619608, 1, 1 )
+shader_param/shadow_color = Color( 0, 0.403922, 0.866667, 1 )
+shader_param/highlight_color = Color( 0, 0.858824, 1, 1 )
+
+[resource]
+next_pass = SubResource( 2 )
+params_diffuse_mode = 4
+params_specular_mode = 3

@@ -1,0 +1,60 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 outline_color : hint_color;
+uniform vec2 texelsize;
+uniform float texelsizescaler;
+
+uniform float strength: hint_range(-1.0, 1.0);
+uniform float offset;
+uniform float diameter;
+
+vec4 sobel(sampler2D screen, vec2 uv){
+	vec4 x = vec4(0.0);
+	vec4 y = vec4(0.0);
+	vec2 texelSize = texelsize * texelsizescaler;
+	x += texture(screen, uv + vec2(-texelSize.x, -texelSize.y)) * -1.0;
+	x += texture(screen, uv + vec2(-texelSize.x,            0)) * -2.0;
+	x += texture(screen, uv + vec2(-texelSize.x,  texelSize.y)) * -1.0;
+	
+	x += texture(screen, uv + vec2( texelSize.x, -texelSize.y)) *  1.0;
+	x += texture(screen, uv + vec2( texelSize.x,            0)) *  2.0;
+	x += texture(screen, uv + vec2( texelSize.x,  texelSize.y)) *  1.0;
+	
+	y += texture(screen, uv + vec2(-texelSize.x, -texelSize.y)) * -1.0;
+	y += texture(screen, uv + vec2(           0, -texelSize.y)) * -2.0;
+	y += texture(screen, uv + vec2( texelSize.x, -texelSize.y)) * -1.0;
+	
+	y += texture(screen, uv + vec2(-texelSize.x,  texelSize.y)) *  1.0;
+	y += texture(screen, uv + vec2(           0,  texelSize.y)) *  2.0;
+	y += texture(screen, uv + vec2( texelSize.x,  texelSize.y)) *  1.0;
+	return sqrt(x * x + y * y);
+}
+
+void fragment(){
+	float zoom = 1.0 - length((UV * diameter - vec2(diameter / 2.0))) * strength + strength + offset;
+	zoom *= offset;
+	vec2 uv = SCREEN_UV * zoom + vec2(0.5 - zoom / 2.0);
+	vec4 screen_read = texture(SCREEN_TEXTURE, uv);
+	if (clamp(uv.x, 0.0, 1.0) != uv.x || clamp(uv.y, 0.0, 1.0) != uv.y){
+		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	}
+	else{
+		vec3 sobel = sobel(SCREEN_TEXTURE, uv).xyz;
+		vec4 mask = vec4(vec3((sobel.x + sobel.y + sobel.z) / 3.0), 1.0);
+		COLOR = vec4((vec4((vec3(1.0) - mask.xyz), 1.0) * screen_read + mask * outline_color).xyz, 1.0);
+	}
+	
+	}
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+shader_param/texelsize = Vector2( 0.016, 0.009 )
+shader_param/texelsizescaler = 0.083
+shader_param/strength = -0.2
+shader_param/offset = 0.547
+shader_param/diameter = 2.0

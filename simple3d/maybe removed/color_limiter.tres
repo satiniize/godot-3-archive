@@ -1,0 +1,45 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform vec3 offset;
+uniform vec3 color_offset;
+uniform sampler2D tex_frg_2;
+uniform float colors;
+uniform float blur;
+uniform bool monotone;
+uniform float contrast;
+
+void fragment() {
+//	float contrast = sin(TIME);
+	vec3 base_uv = vec3(SCREEN_UV, 0.0);
+	vec3 offset_uv = base_uv + offset;
+	vec4 tex_base = textureLod(SCREEN_TEXTURE, base_uv.xy, blur);
+	vec4 tex_offset = textureLod(SCREEN_TEXTURE, offset_uv.xy, blur);
+	if (monotone){
+		tex_base.xyz = vec3(length(tex_base.xyz));
+	}
+	if (colors != 0.0){
+		tex_base.r = pow(round(tex_base.r * colors) / colors, contrast) * color_offset.r;
+		tex_base.g = pow(round(tex_base.g * colors) / colors, contrast) * color_offset.g;
+		tex_base.b = pow(round(tex_base.b * colors) / colors, contrast) * color_offset.b;
+	}
+	
+	float average = (tex_base.r + tex_base.g + tex_base.b) / 3.0;
+	vec4 new_tex = vec4(vec3(average), 1.0);
+//	if (length(tex_base - tex_offset) > 0.2){
+//		tex_base = vec4(0.0, 0.0, 0.0, 1.0);
+//	}
+	COLOR = tex_base;
+}
+"
+custom_defines = ""
+
+[resource]
+shader = SubResource( 1 )
+shader_param/offset = Vector3( 0, 0, 0 )
+shader_param/color_offset = Vector3( 1, 1, 1 )
+shader_param/colors = 8.0
+shader_param/blur = 0.0
+shader_param/monotone = false
+shader_param/contrast = 2.0

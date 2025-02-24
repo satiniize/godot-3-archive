@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/interactables/steak_meal_source/steak_meal_source.gd" type="Script" id=1]
+[ext_resource path="res://meshes/piring.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://meshes/steak.tres" type="ArrayMesh" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.3, 0.1, 0.3 )
+
+[node name="steak_meal" type="Area"]
+collision_layer = 4
+script = ExtResource( 1 )
+
+[node name="colliision" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+shape = SubResource( 1 )
+
+[node name="piring" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = null
+
+[node name="steak" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0 )
+mesh = ExtResource( 3 )
+material/0 = null

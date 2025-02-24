@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+transmission_enabled = true
+transmission = Color( 1, 1, 1, 1 )
+
+[node name="lights" type="Spatial"]
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0 )
+shadow_enabled = true
+
+[node name="CSGCylinder" type="CSGCylinder" parent="."]
+radius = 0.1
+height = 0.6
+material = SubResource( 1 )

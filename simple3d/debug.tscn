@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://debug.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/interactables/table_for_two/table_for_two.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/interactables/toilet/toilet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/people/people.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/interactables/spilled_water/spilled_water.tscn" type="PackedScene" id=7]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 2 )
+uv1_triplanar = true
+
+[node name="debug" type="Spatial"]
+script = ExtResource( 1 )
+people = ExtResource( 6 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+use_collision = true
+width = 20.0
+depth = 20.0
+material = SubResource( 1 )
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35811, 0 )
+
+[node name="toilet" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22, 1.06, 0 )
+
+[node name="table_for_two" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44, 2.27 )
+
+[node name="StaticBody" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )

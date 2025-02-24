@@ -1,0 +1,59 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform bool view_space;
+uniform sampler2D shadow_texture;
+uniform vec4 shadow_color: hint_color;
+uniform sampler2D base_texture;
+uniform vec4 base_color: hint_color;
+uniform sampler2D highlight_texture;
+uniform vec4 highlight_color: hint_color;
+
+uniform vec3 fake_light_location;
+varying vec3 vertex_normal;
+
+uniform float shadow_threshold;
+uniform float highlight_threshold;
+
+varying vec4 test;
+
+void vertex(){
+	vertex_normal = NORMAL; //cant use NORMAL from fragment cuz its screenspace
+}
+
+void fragment(){
+	float light_data;
+	if (view_space){
+		light_data = dot(normalize(NORMAL), normalize(fake_light_location));
+	}
+	else{
+		light_data = dot(normalize(vertex_normal), normalize(fake_light_location));
+	}
+	
+	vec4 output_color;
+	
+	if (light_data < shadow_threshold){
+		output_color = shadow_color * texture(shadow_texture, UV);
+	}
+	else if (light_data > highlight_threshold){
+		output_color = highlight_color * texture(highlight_texture, UV);
+	}
+	else{
+		output_color = base_color * texture(base_texture, UV);
+	}
+	ALBEDO = output_color.xyz;
+}
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/view_space = true
+shader_param/shadow_color = Color( 0.745098, 0.345098, 0.996078, 1 )
+shader_param/base_color = Color( 0.501961, 0.4, 1, 1 )
+shader_param/highlight_color = Color( 0.498039, 0.658824, 1, 1 )
+shader_param/fake_light_location = Vector3( 0.404, 0.27, 0.131 )
+shader_param/shadow_threshold = -0.48
+shader_param/highlight_threshold = 0.668
